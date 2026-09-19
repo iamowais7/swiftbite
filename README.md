@@ -300,6 +300,7 @@ Create a `.env` in each service folder and `frontend/.env` (**never commit these
 - `services/realtime/.env` — `PORT, JWT_SEC, INTERNAL_SERVICE_KEY`
 - `services/admin/.env` — `PORT, MONGODB_URI, JWT_SEC`
 - `frontend/.env` — `VITE_STRIPE_PUBLISHABLE_KEY, VITE_INTERNAL_SERVICE_KEY, VITE_GOOGLE_CLIENT_ID`
+  - Optional, for pointing at deployed backends instead of localhost: `VITE_AUTH_SERVICE, VITE_RESTAURANT_SERVICE, VITE_UTILS_SERVICE, VITE_REALTIME_SERVICE, VITE_RIDER_SERVICE, VITE_ADMIN_SERVICE`
 
 `JWT_SEC` and `INTERNAL_SERVICE_KEY` must be identical across every service that lists them — they're shared secrets, not per-service ones.
 
