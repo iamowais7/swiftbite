@@ -44,11 +44,47 @@ function Login() {
     flow:"auth-code",
   });
 
+  const floatingFoods = [
+    { emoji: "🍔", top: "8%", left: "10%", size: "text-6xl", duration: 7 },
+    { emoji: "🍕", top: "15%", left: "82%", size: "text-7xl", duration: 9 },
+    { emoji: "🍜", top: "72%", left: "6%", size: "text-6xl", duration: 8 },
+    { emoji: "🍰", top: "78%", left: "85%", size: "text-6xl", duration: 6.5 },
+    { emoji: "🥗", top: "45%", left: "3%", size: "text-5xl", duration: 7.5 },
+    { emoji: "🍩", top: "38%", left: "90%", size: "text-5xl", duration: 8.5 },
+  ];
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white px-4">
-      {/* decorative blobs */}
-      <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
+      {/* animated gradient blobs */}
+      <motion.div
+        animate={{ x: [0, 30, 0], y: [0, 20, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-brand/15 blur-3xl"
+      />
+      <motion.div
+        animate={{ x: [0, -25, 0], y: [0, -15, 0], scale: [1, 1.15, 1] }}
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-brand/15 blur-3xl"
+      />
+      <motion.div
+        animate={{ opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffb800]/10 blur-3xl"
+      />
+
+      {/* floating food emojis */}
+      {floatingFoods.map((f, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0 }}
+          animate={{ y: [0, -18, 0], rotate: [0, 8, 0], opacity: 0.16 }}
+          transition={{ duration: f.duration, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
+          className={`pointer-events-none absolute select-none ${f.size} blur-[1px]`}
+          style={{ top: f.top, left: f.left }}
+        >
+          {f.emoji}
+        </motion.span>
+      ))}
 
       <motion.div
         initial={{ opacity: 0, y: 24, scale: 0.97 }}

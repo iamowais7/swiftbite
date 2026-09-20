@@ -20,6 +20,8 @@ import RiderDashboard from "./pages/RiderDashboard";
 import Admin from "./pages/Admin";
 import AiSupportChat from "./components/AiSupportChat";
 import Logo from "./components/Logo";
+import Footer from "./components/Footer";
+import Help from "./pages/Help";
 
 function App() {
   const { user, loading } = useAppData();
@@ -39,9 +41,9 @@ function App() {
   }
 
   // Role-specific full-page views (no router needed — they don't use Link/navigate)
-  if (user?.role === "seller")  return <Restaurant />;
-  if (user?.role === "rider")   return <RiderDashboard />;
-  if (user?.role === "admin")   return <Admin />;
+  if (user?.role === "seller")  return (<><Restaurant /><Footer /></>);
+  if (user?.role === "rider")   return (<><RiderDashboard /><Footer /></>);
+  if (user?.role === "admin")   return (<><Admin /><Footer /></>);
 
   // Customer / unauthenticated flow — all inside BrowserRouter
   return (
@@ -66,12 +68,14 @@ function App() {
           <Route path="/paymentsuccess/:paymentId" element={<PaymentSuccess />} />
           <Route path="/ordersuccess"              element={<OrderSuccess />} />
           <Route path="/select-role"               element={<SelectRole />} />
+          <Route path="/help"                      element={<Help />} />
         </Route>
 
         {/* Fallback */}
         <Route path="*" element={<Home />} />
       </Routes>
       {user && <AiSupportChat />}
+      {user && <Footer />}
     </BrowserRouter>
   );
 }
