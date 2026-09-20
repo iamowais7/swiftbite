@@ -10,7 +10,7 @@
     "dev": "concurrently \"tsc --watch\" \"node --watch dist/index.js\" "
   },
   "keywords": [],
-  "author": "",
+  "author": "Owais Khan",
   "license": "ISC",
   "dependencies": {
     "@types/cors": "^2.8.19",

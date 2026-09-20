@@ -345,4 +345,8 @@ Kept here honestly rather than swept under the rug:
 
 ---
 
-⭐ *Originally based on an open-source SwiftBite food delivery project, substantially extended here with AI features, bug fixes, and a from-scratch local dev setup.*
+## 👤 Author
+
+**Owais Khan**
+
+⭐ *If you like this project, consider giving it a star on GitHub!*
