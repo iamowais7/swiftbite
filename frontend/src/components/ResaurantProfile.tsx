@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import { BiEdit, BiMapPin, BiSave } from "react-icons/bi";
 import { useAppData } from "../context/AppContext";
+import RoleSwitcher from "./RoleSwitcher";
 
 interface Props {
   restaurant: IRestaurant;
@@ -164,6 +165,11 @@ const ResaurantProfile = ({ restaurant, isSeller, onUpdate }: Props) => {
             >
               {isOpen ? "Close Restaurant" : "Open Restaurant"}
             </motion.button>
+          )}
+          {isSeller && (
+            <div className="w-40">
+              <RoleSwitcher />
+            </div>
           )}
           {isSeller && (
             <motion.button

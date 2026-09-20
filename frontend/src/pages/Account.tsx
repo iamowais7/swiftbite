@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { useAppData } from "../context/AppContext"
 import toast from "react-hot-toast"
 import { motion } from "framer-motion"
-import { BiChevronRight, BiLogOut, BiMapPin, BiPackage } from "react-icons/bi"
+import { BiChevronRight, BiLogOut, BiMapPin, BiPackage, BiTransferAlt } from "react-icons/bi"
 
 export const Account = () => {
   const { user, setUser, setIsAuth } = useAppData()
@@ -20,6 +20,7 @@ export const Account = () => {
   const menuRows = [
     { icon: BiPackage, label: "Your Orders", onClick: () => navigate("/orders") },
     { icon: BiMapPin, label: "Addresses", onClick: () => navigate("/address") },
+    { icon: BiTransferAlt, label: "Switch Role", onClick: () => navigate("/select-role") },
     { icon: BiLogOut, label: "Logout", onClick: logoutHandler },
   ]
 

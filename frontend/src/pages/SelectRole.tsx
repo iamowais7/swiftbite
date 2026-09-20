@@ -15,8 +15,8 @@ const roleIcons: Record<string, string> = {
 }
 
 const SelectRole = () => {
-  const [role, setRole] = useState<Role>(null)
-  const {setUser} = useAppData()
+  const {user, setUser} = useAppData()
+  const [role, setRole] = useState<Role>((user?.role as Role) || null)
   const navigate = useNavigate()
   const roles: Role[] = ["customer","rider","seller"]
 
@@ -51,7 +51,9 @@ const SelectRole = () => {
         {/* Brand */}
         <div className="flex flex-col items-center gap-3 text-center">
           <Logo size="lg" />
-          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Choose your role</h2>
+          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            {user?.role ? "Switch your role" : "Choose your role"}
+          </h2>
         </div>
 
         <div className="space-y-3">

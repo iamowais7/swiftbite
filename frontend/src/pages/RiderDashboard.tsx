@@ -11,6 +11,7 @@ import RiderOrderMap from "../components/RiderOrderMap";
 import RiderOrderRequest from "../components/RiderOrderRequest";
 import type { IOrder } from "../types";
 import { useSound } from "../hooks/useSound";
+import RoleSwitcher from "../components/RoleSwitcher";
 
 interface IRider {
   _id: string;
@@ -288,7 +289,11 @@ function RiderDashboard() {
             </div>
           )}
 
-          {/* Logout — disabled while on an active delivery */}
+          {/* Switch Role / Logout — disabled while on an active delivery */}
+          <RoleSwitcher
+            disabled={!!currentOrder}
+            disabledReason="Finish your current delivery before switching role"
+          />
           <motion.button
             whileHover={currentOrder ? {} : { scale: 1.02 }}
             whileTap={currentOrder ? {} : { scale: 0.97 }}
