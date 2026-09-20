@@ -11,6 +11,7 @@ import {
   HiChevronDown,
 } from "react-icons/hi2";
 import { BiCycling } from "react-icons/bi";
+import DeveloperCard from "../components/DeveloperCard";
 
 const features = [
   {
@@ -184,40 +185,9 @@ function Help() {
             Still stuck? Click the sparkle chat button in the bottom-right corner to talk to our AI assistant.
           </p>
         </motion.div>
-
-        {/* Meet the developer */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="mx-auto mt-8 max-w-3xl rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(0,0,0,0.06)] sm:p-8 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
-        >
-          <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
-            <img
-              src="/owais.jpeg"
-              alt="Owais Khan"
-              className="h-24 w-24 shrink-0 rounded-full object-cover shadow-[0_4px_16px_rgba(226,55,68,0.25)] ring-4 ring-brand/10"
-            />
-            <div className="flex-1">
-              <p className="text-xs font-semibold uppercase tracking-wide text-brand">Meet the Developer</p>
-              <h3 className="mt-1 text-xl font-extrabold text-gray-900 dark:text-white">Owais Khan</h3>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Built SwiftBite AI end-to-end — microservices backend, real-time tracking, and the AI features across this app.
-              </p>
-            </div>
-            <motion.a
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              href="https://owaisfolio.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shrink-0 rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-dark"
-            >
-              View Portfolio
-            </motion.a>
-          </div>
-        </motion.div>
       </div>
+
+      <DeveloperCard />
     </div>
   );
 }
