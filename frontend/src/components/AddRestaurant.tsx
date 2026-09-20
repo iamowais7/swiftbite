@@ -47,7 +47,7 @@ function AddRestaurant({ fetchMyRestaurant }:props) {
     }
   }
   return (
-    <div className="relative min-h-screen overflow-hidden bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white px-4 py-10">
+    <div className="relative min-h-screen overflow-hidden bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white px-4 py-10 dark:from-gray-900 dark:via-gray-950 dark:to-gray-950">
       <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
 
@@ -55,11 +55,11 @@ function AddRestaurant({ fetchMyRestaurant }:props) {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="relative mx-auto max-w-lg space-y-5 rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(0,0,0,0.06)]"
+        className="relative mx-auto max-w-lg space-y-5 rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
       >
         <div>
-          <h1 className="text-xl font-extrabold text-gray-900">Add Your Restaurant</h1>
-          <p className="mt-1 text-sm text-gray-500">Tell us a bit about your restaurant to get started</p>
+          <h1 className="text-xl font-extrabold text-gray-900 dark:text-white">Add Your Restaurant</h1>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Tell us a bit about your restaurant to get started</p>
         </div>
 
         <input
@@ -67,7 +67,7 @@ function AddRestaurant({ fetchMyRestaurant }:props) {
           placeholder="Restaurant name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10"
+          className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
         />
 
         <input
@@ -75,17 +75,17 @@ function AddRestaurant({ fetchMyRestaurant }:props) {
           placeholder="Contact Number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10"
+          className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
         />
 
         <textarea
           placeholder="Restaurant Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10"
+          className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
         />
 
-        <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 p-4 text-sm text-gray-600 transition hover:bg-gray-50">
+        <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 p-4 text-sm text-gray-600 transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800">
           <BiUpload className="h-5 w-5 text-brand" />
           {image ? image.name : "Upload restaurant image"}
           <input
@@ -97,9 +97,9 @@ function AddRestaurant({ fetchMyRestaurant }:props) {
           />
         </label>
 
-        <div className="flex items-start gap-3 rounded-xl border border-gray-200 p-4">
+        <div className="flex items-start gap-3 rounded-xl border border-gray-200 p-4 dark:border-gray-700">
           <BiMapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-gray-600 dark:text-gray-300">
             {loadingLocation ? "Fetching you location..." : location?.formattedAddress || "Location not available"}
           </div>
         </div>

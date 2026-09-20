@@ -54,7 +54,7 @@ function Login() {
   ];
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white px-4">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white px-4 dark:from-gray-900 dark:via-gray-950 dark:to-gray-950">
       {/* animated gradient blobs */}
       <motion.div
         animate={{ x: [0, 30, 0], y: [0, 20, 0], scale: [1, 1.1, 1] }}
@@ -90,7 +90,7 @@ function Login() {
         initial={{ opacity: 0, y: 24, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative w-full max-w-sm space-y-7 rounded-3xl bg-white/90 p-8 shadow-[0_20px_60px_rgba(226,55,68,0.12)] backdrop-blur-sm"
+        className="relative w-full max-w-sm space-y-7 rounded-3xl bg-white/90 p-8 shadow-[0_20px_60px_rgba(226,55,68,0.12)] backdrop-blur-sm dark:bg-gray-900/90 dark:shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
       >
         <motion.div
           initial={{ opacity: 0, y: -8 }}
@@ -99,7 +99,7 @@ function Login() {
           className="flex flex-col items-center gap-3 text-center"
         >
           <Logo size="lg" />
-          <p className="text-sm text-gray-500">Log in or sign up to continue</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Log in or sign up to continue</p>
           <p className="flex items-center gap-1.5 rounded-full bg-brand/10 px-3.5 py-1.5 text-xs font-semibold text-brand">
             <HiSparkles className="h-3.5 w-3.5" />
             Powered by AI — smart search, instant recommendations & order support
@@ -114,7 +114,7 @@ function Login() {
           whileTap={{ scale: 0.98 }}
           onClick={googleLogin}
           disabled={loading}
-          className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-gray-300 hover:shadow-md disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-gray-300 hover:shadow-md disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-600"
         >
           <FcGoogle size={20}/>
           {loading ? "Signing in..." : "Continue with Google"}
@@ -124,7 +124,7 @@ function Login() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center text-xs text-gray-400"
+          className="text-center text-xs text-gray-400 dark:text-gray-500"
         >
           By continuing, you agree with our{" "}
           <span className="font-medium text-brand">Terms of Service</span> &{" "}

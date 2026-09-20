@@ -90,19 +90,19 @@ function Help() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Hero */}
       <motion.div
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative overflow-hidden bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white px-4 py-12"
+        className="relative overflow-hidden bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white px-4 py-12 dark:from-gray-900 dark:via-gray-950 dark:to-gray-950"
       >
         <div className="mx-auto max-w-5xl text-center">
-          <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl dark:text-white">
             New here? Here's what <span className="text-brand">SwiftBite AI</span> can do
           </h1>
-          <p className="mx-auto mt-2 max-w-xl text-sm text-gray-500">
+          <p className="mx-auto mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400">
             A quick tour of the features, plus answers to the questions people ask most.
           </p>
         </div>
@@ -121,13 +121,13 @@ function Help() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.05 }}
                 whileHover={{ y: -3 }}
-                className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]"
+                className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
               >
                 <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-brand/10">
                   <Icon className="h-6 w-6 text-brand" />
                 </div>
-                <h3 className="font-bold text-gray-900">{f.title}</h3>
-                <p className="mt-1 text-sm text-gray-500">{f.description}</p>
+                <h3 className="font-bold text-gray-900 dark:text-white">{f.title}</h3>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{f.description}</p>
               </motion.div>
             );
           })}
@@ -135,20 +135,20 @@ function Help() {
 
         {/* FAQ */}
         <div className="mx-auto mt-14 max-w-3xl">
-          <h2 className="mb-4 text-2xl font-extrabold text-gray-900">Frequently asked questions</h2>
+          <h2 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white">Frequently asked questions</h2>
           <div className="space-y-3">
             {faqs.map((item, i) => {
               const isOpen = openFaq === i;
               return (
                 <div
                   key={item.q}
-                  className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)]"
+                  className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     className="flex w-full items-center justify-between px-5 py-4 text-left"
                   >
-                    <span className="font-semibold text-gray-800">{item.q}</span>
+                    <span className="font-semibold text-gray-800 dark:text-gray-200">{item.q}</span>
                     <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
                       <HiChevronDown className="h-5 w-5 shrink-0 text-brand" />
                     </motion.span>
@@ -162,7 +162,7 @@ function Help() {
                         transition={{ duration: 0.25, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <p className="px-5 pb-4 text-sm text-gray-500">{item.a}</p>
+                        <p className="px-5 pb-4 text-sm text-gray-500 dark:text-gray-400">{item.a}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -179,7 +179,7 @@ function Help() {
           transition={{ duration: 0.4, delay: 0.2 }}
           className="mx-auto mt-14 max-w-3xl rounded-2xl bg-brand/5 p-6 text-center"
         >
-          <p className="flex items-center justify-center gap-2 text-sm font-medium text-gray-700">
+          <p className="flex items-center justify-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200">
             <HiChatBubbleLeftRight className="h-5 w-5 text-brand" />
             Still stuck? Click the sparkle chat button in the bottom-right corner to talk to our AI assistant.
           </p>
@@ -190,7 +190,7 @@ function Help() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.3 }}
-          className="mx-auto mt-8 max-w-3xl rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(0,0,0,0.06)] sm:p-8"
+          className="mx-auto mt-8 max-w-3xl rounded-2xl bg-white p-6 shadow-[0_2px_10px_rgba(0,0,0,0.06)] sm:p-8 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
         >
           <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
             <img
@@ -200,8 +200,8 @@ function Help() {
             />
             <div className="flex-1">
               <p className="text-xs font-semibold uppercase tracking-wide text-brand">Meet the Developer</p>
-              <h3 className="mt-1 text-xl font-extrabold text-gray-900">Owais Khan</h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <h3 className="mt-1 text-xl font-extrabold text-gray-900 dark:text-white">Owais Khan</h3>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 Built SwiftBite AI end-to-end — microservices backend, real-time tracking, and the AI features across this app.
               </p>
             </div>

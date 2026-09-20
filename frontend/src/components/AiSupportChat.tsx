@@ -53,7 +53,7 @@ function AiSupportChat() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex h-[28rem] w-80 flex-col overflow-hidden rounded-xl bg-white shadow-2xl border">
+    <div className="fixed bottom-5 right-5 z-50 flex h-[28rem] w-80 flex-col overflow-hidden rounded-xl bg-white shadow-2xl border dark:bg-gray-900 dark:border-gray-800">
       <div className="flex items-center justify-between bg-brand px-4 py-3 text-white">
         <span className="flex items-center gap-2 text-sm font-semibold">
           <HiSparkles className="h-4 w-4" /> SwiftBite AI Support
@@ -68,23 +68,23 @@ function AiSupportChat() {
           <div
             key={i}
             className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
-              m.role === "user" ? "ml-auto bg-brand text-white" : "bg-gray-100 text-gray-800"
+              m.role === "user" ? "ml-auto bg-brand text-white" : "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
             }`}
           >
             {m.content}
           </div>
         ))}
-        {sending && <div className="max-w-[85%] rounded-lg bg-gray-100 px-3 py-2 text-sm text-gray-400">Typing...</div>}
+        {sending && <div className="max-w-[85%] rounded-lg bg-gray-100 px-3 py-2 text-sm text-gray-400 dark:bg-gray-800 dark:text-gray-500">Typing...</div>}
       </div>
 
-      <div className="flex items-center gap-2 border-t p-2">
+      <div className="flex items-center gap-2 border-t p-2 dark:border-gray-800">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           placeholder="Ask about your order..."
-          className="flex-1 rounded-lg border px-3 py-2 text-sm outline-none"
+          className="flex-1 rounded-lg border px-3 py-2 text-sm outline-none dark:border-gray-800 dark:bg-gray-800 dark:text-gray-100"
         />
         <button
           onClick={sendMessage}

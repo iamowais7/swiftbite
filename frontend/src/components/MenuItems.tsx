@@ -80,7 +80,7 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
-        <p className="text-sm font-medium text-gray-400">No items to show</p>
+        <p className="text-sm font-medium text-gray-400 dark:text-gray-500">No items to show</p>
       </div>
     );
   }
@@ -96,7 +96,7 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.04 }}
             whileHover={{ y: -3 }}
-            className={`relative flex gap-4 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)] ${
+            className={`relative flex gap-4 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800 ${
               !item.isAvailable ? "opacity-70" : ""
             }`}
           >
@@ -117,9 +117,9 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
 
             <div className="flex flex-1 flex-col justify-between">
               <div>
-                <h3 className="font-bold text-gray-900">{item.name}</h3>
+                <h3 className="font-bold text-gray-900 dark:text-white">{item.name}</h3>
                 {item.description && (
-                  <p className="text-sm text-gray-500 line-clamp-2">
+                  <p className="text-sm text-gray-500 line-clamp-2 dark:text-gray-400">
                     {item.description}
                   </p>
                 )}
@@ -131,7 +131,7 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={() => toggleAvailability(item._id)}
-                      className="rounded-lg p-2 text-gray-600 hover:bg-gray-100"
+                      className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                     >
                       {item.isAvailable ? (
                         <BsEye size={18} />
@@ -156,7 +156,7 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
                     onClick={() => addToCart(item.restaurantId, item._id)}
                     className={`flex items-center justify-center rounded-lg p-2 ${
                       !item.isAvailable || isLoading
-                        ? "cursor-not-allowed text-gray-400"
+                        ? "cursor-not-allowed text-gray-400 dark:text-gray-500"
                         : "text-brand hover:bg-brand/10"
                     }`}
                   >

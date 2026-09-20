@@ -36,30 +36,30 @@ function RiderCurrentOrder({ order, onStatusUpdate }: Props) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="space-y-4 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]"
+      className="space-y-4 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
     >
-      <h1 className="font-bold text-gray-900">Current Order</h1>
+      <h1 className="font-bold text-gray-900 dark:text-white">Current Order</h1>
 
-      <div className="space-y-1.5 text-sm text-gray-600">
+      <div className="space-y-1.5 text-sm text-gray-600 dark:text-gray-300">
         <p>
-          <b className="font-semibold text-gray-800">Pickup:</b> {order.restaurantName}
+          <b className="font-semibold text-gray-800 dark:text-gray-100">Pickup:</b> {order.restaurantName}
         </p>
 
         <p>
-          <b className="font-semibold text-gray-800">Drop:</b> {address?.formattedAddress ?? "—"}
+          <b className="font-semibold text-gray-800 dark:text-gray-100">Drop:</b> {address?.formattedAddress ?? "—"}
         </p>
 
         <p>
-          <b className="font-semibold text-gray-800">Total:</b> ₹{order.totalAmount}
+          <b className="font-semibold text-gray-800 dark:text-gray-100">Total:</b> ₹{order.totalAmount}
         </p>
 
         <p>
-          <b className="font-semibold text-gray-800">Your Earning:</b>{" "}
+          <b className="font-semibold text-gray-800 dark:text-gray-100">Your Earning:</b>{" "}
           <span className="font-bold text-brand">₹{order.riderAmount}</span>
         </p>
 
         <p className="flex items-center gap-1.5">
-          <b className="font-semibold text-gray-800">Status:</b>
+          <b className="font-semibold text-gray-800 dark:text-gray-100">Status:</b>
           <span className="rounded-full bg-brand/10 px-2.5 py-0.5 text-xs font-semibold capitalize text-brand">
             {order.status.replace("_", " ")}
           </span>
@@ -67,10 +67,10 @@ function RiderCurrentOrder({ order, onStatusUpdate }: Props) {
       </div>
 
       {address?.mobile && (
-        <div className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50 p-3">
+        <div className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-800/60">
           <div className="text-sm">
-            <p className="text-gray-500">Customer Phone</p>
-            <p className="font-semibold text-gray-800">
+            <p className="text-gray-500 dark:text-gray-400">Customer Phone</p>
+            <p className="font-semibold text-gray-800 dark:text-gray-100">
               {address.mobile}
             </p>
           </div>

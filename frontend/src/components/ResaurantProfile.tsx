@@ -85,7 +85,7 @@ const ResaurantProfile = ({ restaurant, isSeller, onUpdate }: Props) => {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="mx-auto max-w-xl overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)]"
+      className="mx-auto max-w-xl overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
     >
       {restaurant.image && (
         <div className="relative h-48 w-full overflow-hidden">
@@ -108,12 +108,12 @@ const ResaurantProfile = ({ restaurant, isSeller, onUpdate }: Props) => {
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border px-3 py-1.5 text-lg font-bold outline-none focus:border-brand"
+                className="w-full rounded-lg border px-3 py-1.5 text-lg font-bold outline-none focus:border-brand dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
               />
             ) : (
-              <h2 className="text-xl font-extrabold text-gray-900">{restaurant.name}</h2>
+              <h2 className="text-xl font-extrabold text-gray-900 dark:text-white">{restaurant.name}</h2>
             )}
-            <div className="mt-1.5 flex items-center gap-1.5 text-sm text-gray-500">
+            <div className="mt-1.5 flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
               <BiMapPin className="h-4 w-4 shrink-0 text-brand" />
               <span className="truncate">{restaurant.autoLocation.formattedAddress || "Location unavailable"}</span>
             </div>
@@ -122,7 +122,7 @@ const ResaurantProfile = ({ restaurant, isSeller, onUpdate }: Props) => {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setEditMode(!editMode)}
-              className="shrink-0 rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-brand"
+              className="shrink-0 rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-brand dark:text-gray-400 dark:hover:bg-gray-800"
             >
               <BiEdit size={18} />
             </motion.button>
@@ -133,15 +133,15 @@ const ResaurantProfile = ({ restaurant, isSeller, onUpdate }: Props) => {
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-brand"
+            className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-brand dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
           />
         ) : (
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
             {restaurant.description || "No description added"}
           </p>
         )}
 
-        <div className="flex flex-wrap items-center justify-end gap-2.5 border-t pt-4">
+        <div className="flex flex-wrap items-center justify-end gap-2.5 border-t pt-4 dark:border-gray-800">
           {editMode && (
             <motion.button
               whileHover={{ scale: 1.03 }}
@@ -176,7 +176,7 @@ const ResaurantProfile = ({ restaurant, isSeller, onUpdate }: Props) => {
             </motion.button>
           )}
         </div>
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-400 dark:text-gray-500">
           Created on {new Date(restaurant.createdAt).toLocaleDateString()}
         </p>
       </div>

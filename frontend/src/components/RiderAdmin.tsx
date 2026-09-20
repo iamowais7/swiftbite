@@ -40,7 +40,7 @@ function RiderAdmin({
   return (
     <motion.div
       whileHover={{ y: -3 }}
-      className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]"
+      className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
     >
       <div className="relative h-40 w-full overflow-hidden">
         <img
@@ -55,16 +55,16 @@ function RiderAdmin({
       </div>
 
       <div className="space-y-2 p-4">
-        <h3 className="font-bold text-gray-900">{rider.name}</h3>
-        <p className="flex items-center gap-1.5 text-sm text-gray-500">
+        <h3 className="font-bold text-gray-900 dark:text-white">{rider.name}</h3>
+        <p className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
           <BiPhone className="h-4 w-4 shrink-0 text-brand" />
           {rider.phoneNumber}
         </p>
-        <p className="flex items-center gap-1.5 text-sm text-gray-500">
+        <p className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
           <BiIdCard className="h-4 w-4 shrink-0 text-brand" />
           Aadhaar: {rider.aadhaarNumber}
         </p>
-        <p className="flex items-center gap-1.5 text-sm text-gray-500">
+        <p className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
           <BiIdCard className="h-4 w-4 shrink-0 text-brand" />
           License: {rider.drivingLicenseNumber}
         </p>

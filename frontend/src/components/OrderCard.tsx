@@ -24,19 +24,19 @@ const ORDER_ACTION: Record<string, string[]> = {
 const statusColor = (status: string) => {
   switch (status) {
     case "placed":
-      return "bg-yellow-100 text-yellow-700";
+      return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400";
     case "accepted":
-      return "bg-orange-100 text-orange-700";
+      return "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400";
     case "preparing":
-      return "bg-blue-100 text-blue-700";
+      return "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400";
     case "ready_for_rider":
-      return "bg-indigo-100 text-indigo-700";
+      return "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400";
     case "picked_up":
-      return "bg-purple-100 text-purple-700";
+      return "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400";
     case "delivered":
-      return "bg-green-100 text-green-700";
+      return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
     default:
-      return "bg-gray-100 text-gray-700";
+      return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
   }
 };
 
@@ -80,27 +80,27 @@ function OrderCard({ order, onStatusUpdate }: Props) {
   };
 
   return (
-    <div className="space-y-3 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]">
+    <div className="space-y-3 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-bold text-gray-900">Order #{order._id.slice(-6)}</p>
+        <p className="text-sm font-bold text-gray-900 dark:text-white">Order #{order._id.slice(-6)}</p>
         <span
           className={`rounded-full px-3 py-1 text-xs font-semibold ${statusColor(order.status)}`}
         >
           {order.status.replaceAll("_", " ")}
         </span>
       </div>
-      <div className="space-y-1 text-sm text-gray-600">
+      <div className="space-y-1 text-sm text-gray-600 dark:text-gray-300">
         {order.items.map((item, i) => (
           <p key={i}>
             {item.name} x {item.quantity}
           </p>
         ))}
       </div>
-      <div className="flex justify-between text-sm font-bold text-gray-900">
+      <div className="flex justify-between text-sm font-bold text-gray-900 dark:text-white">
         <span>Total</span>
         <span>₹{order.totalAmount}</span>
       </div>
-      <p className="text-xs text-gray-400">Payment: {order.paymentStatus}</p>
+      <p className="text-xs text-gray-400 dark:text-gray-500">Payment: {order.paymentStatus}</p>
       {order.paymentStatus === "paid" && actions.length > 0 && (
         <div className="flex flex-wrap gap-2 pt-2">
           {actions.map((status) => (

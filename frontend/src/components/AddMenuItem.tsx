@@ -79,14 +79,14 @@ toast.error("failed to add item")
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="m-auto max-w-md space-y-4"
     >
-      <h2 className="text-lg font-extrabold text-gray-900">Add Menu Item</h2>
+      <h2 className="text-lg font-extrabold text-gray-900 dark:text-white">Add Menu Item</h2>
 
       <input
         type="text"
         placeholder="Item name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10"
+        className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
       />
 
       <div className="space-y-1.5">
@@ -94,7 +94,7 @@ toast.error("failed to add item")
           placeholder="Item description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10"
+          className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
         />
         <motion.button
           type="button"
@@ -114,10 +114,10 @@ toast.error("failed to add item")
         placeholder="Price ₹"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
-        className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10"
+        className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
       />
 
-      <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 p-4 text-sm text-gray-600 transition hover:bg-gray-50">
+      <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 p-4 text-sm text-gray-600 transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800">
         <BiUpload className="h-5 w-5 text-brand" />
         {image ? image.name : "Upload item image"}
         <input type="file" accept="image/*" hidden onChange={(e) => setImage(e.target.files?.[0] || null)} />

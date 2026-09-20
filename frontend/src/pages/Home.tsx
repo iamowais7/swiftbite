@@ -10,11 +10,11 @@ import type { IRestaurant } from "../types";
 
 function SkeletonCard() {
   return (
-    <div className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
-      <div className="h-40 w-full animate-pulse bg-gray-200" />
+    <div className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:bg-gray-900">
+      <div className="h-40 w-full animate-pulse bg-gray-200 dark:bg-gray-800" />
       <div className="space-y-2 p-3.5">
-        <div className="h-3.5 w-3/4 animate-pulse rounded-full bg-gray-200" />
-        <div className="h-3 w-1/3 animate-pulse rounded-full bg-gray-200" />
+        <div className="h-3.5 w-3/4 animate-pulse rounded-full bg-gray-200 dark:bg-gray-800" />
+        <div className="h-3 w-1/3 animate-pulse rounded-full bg-gray-200 dark:bg-gray-800" />
       </div>
     </div>
   );
@@ -86,10 +86,10 @@ function Home() {
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative overflow-hidden bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white px-4 py-10"
+        className="relative overflow-hidden bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white px-4 py-10 dark:from-gray-900 dark:via-gray-950 dark:to-gray-950"
       >
         <div className="mx-auto max-w-7xl">
-          <h1 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
+          <h1 className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
             {search ? (
               <>
                 Results for <span className="text-brand">"{search}"</span>
@@ -101,7 +101,7 @@ function Home() {
               </>
             )}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             {search
               ? `Showing the best matches near you`
               : "Great food, delivered fast — browse what's nearby"}
@@ -161,8 +161,8 @@ function Home() {
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
                   <BiSearchAlt2 className="h-8 w-8 text-brand" />
                 </div>
-                <p className="text-lg font-semibold text-gray-700">No restaurants found</p>
-                <p className="max-w-xs text-sm text-gray-400">
+                <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">No restaurants found</p>
+                <p className="max-w-xs text-sm text-gray-400 dark:text-gray-500">
                   Try a different search, or check back later as more restaurants join SwiftBite AI near you.
                 </p>
               </motion.div>

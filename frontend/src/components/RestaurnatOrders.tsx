@@ -113,12 +113,12 @@ function RestaurnatOrders({ restaurantId }: { restaurantId: string }) {
             className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-brand/10 p-4"
           >
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-brand shadow-sm">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-brand shadow-sm dark:bg-gray-900">
                 <BiBell className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-gray-900">Enable Sound Notifications</p>
-                <p className="text-xs text-gray-500">Get notified when new orders arrive</p>
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">Enable Sound Notifications</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Get notified when new orders arrive</p>
               </div>
             </div>
             <motion.button
@@ -145,9 +145,9 @@ function RestaurnatOrders({ restaurantId }: { restaurantId: string }) {
       </AnimatePresence>
 
       <div className="space-y-3">
-        <h3 className="text-lg font-bold text-gray-900">Active Orders</h3>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white">Active Orders</h3>
         {activeOrders.length === 0 ? (
-          <p className="text-sm text-gray-400">No active orders</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500">No active orders</p>
         ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {activeOrders.map((order, i) => (
@@ -165,9 +165,9 @@ function RestaurnatOrders({ restaurantId }: { restaurantId: string }) {
       </div>
 
       <div className="space-y-3">
-        <h3 className="text-lg font-bold text-gray-900">Completed Orders</h3>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white">Completed Orders</h3>
         {completedOrders.length === 0 ? (
-          <p className="text-sm text-gray-400">No completed orders</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500">No completed orders</p>
         ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {completedOrders.map((order, i) => (

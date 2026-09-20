@@ -54,7 +54,7 @@ function Checkout() {
         animate={{ opacity: 1, scale: 1 }}
         className="flex min-h-[60vh] items-center justify-center"
       >
-        <p className="text-gray-500 text-lg">Your Cart is Empty</p>
+        <p className="text-gray-500 text-lg dark:text-gray-400">Your Cart is Empty</p>
       </motion.div>
     );
   }
@@ -163,21 +163,21 @@ function Checkout() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="mx-auto max-w-4xl px-4 py-6 space-y-6"
     >
-      <h1 className="text-2xl font-extrabold text-gray-900">Checkout</h1>
-      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
-        <h2 className="text-lg font-bold text-gray-900">{restaurant.name}</h2>
-        <p className="text-sm text-gray-500">
+      <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white">Checkout</h1>
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white">{restaurant.name}</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           {restaurant.autoLocation.formattedAddress}
         </p>
       </div>
-      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3">
-        <h3 className="font-bold text-gray-900">Delivery Address</h3>
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <h3 className="font-bold text-gray-900 dark:text-white">Delivery Address</h3>
         {loadingAddress ? (
           <div className="flex items-center justify-center py-6">
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-brand border-t-transparent" />
           </div>
         ) : address.length === 0 ? (
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             No address found. Please add one.
           </p>
         ) : (
@@ -191,7 +191,7 @@ function Checkout() {
               className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition ${
                 selectedAddressId === add._id
                   ? "border-brand bg-brand/10"
-                  : "border-gray-200 hover:bg-gray-50"
+                  : "border-gray-200 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
               }`}
             >
               <input
@@ -202,19 +202,19 @@ function Checkout() {
               />
               <BiMapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
               <div>
-                <p className="text-sm font-medium text-gray-800">{add.formattedAddress}</p>
-                <p className="text-xs text-gray-500">{add.mobile}</p>
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{add.formattedAddress}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{add.mobile}</p>
               </div>
             </motion.label>
           ))
         )}
       </div>
-      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-4">
-        <h3 className="font-bold text-gray-900">Order Summary</h3>
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-4 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <h3 className="font-bold text-gray-900 dark:text-white">Order Summary</h3>
         {cart.map((cartItem: ICart) => {
           const item = cartItem.itemId as IMenuItem;
           return (
-            <div className="flex justify-between text-sm text-gray-600" key={cartItem._id}>
+            <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300" key={cartItem._id}>
               <span>
                 {item.name} X {cartItem.quantity}
               </span>
@@ -222,37 +222,37 @@ function Checkout() {
             </div>
           );
         })}
-        <hr className="border-gray-100" />
-        <div className="flex justify-between text-sm text-gray-600">
+        <hr className="border-gray-100 dark:border-gray-800" />
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
           <span>Items ({quantity})</span>
           <span>₹{subTotal}</span>
         </div>
-        <div className="flex justify-between text-sm text-gray-600">
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
           <span>Delivery Fee</span>
           <span>{deliveryFee === 0 ? "Free" : `₹${deliveryFee}`}</span>
         </div>
-        <div className="flex justify-between text-sm text-gray-600">
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
           <span>Platform Fee</span>
           <span>₹{platformFee}</span>
         </div>
         {subTotal < 250 && (
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Add items worth ₹{250 - subTotal} more to get free delivery
           </p>
         )}
-        <div className="flex justify-between border-t pt-2 text-base font-bold text-gray-900">
+        <div className="flex justify-between border-t pt-2 text-base font-bold text-gray-900 dark:border-gray-800 dark:text-white">
           <span>Grand Total</span>
           <span>₹{grandTotal}</span>
         </div>
       </div>
-      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3">
-        <h3 className="font-bold text-gray-900">Payment Method</h3>
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <h3 className="font-bold text-gray-900 dark:text-white">Payment Method</h3>
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.97 }}
           disabled={!selectedAddressId || loadingRazorpay || creatingOrder}
           onClick={payWithRazorpay}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#2D7FF9] py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#2D7FF9] py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 disabled:opacity-50 dark:bg-[#3d8bfa] dark:hover:bg-[#5b9dfb]"
         >
           {loadingRazorpay ? (
             <BiLoader size={18} className="animate-spin" />
@@ -266,7 +266,7 @@ function Checkout() {
           whileTap={{ scale: 0.97 }}
           disabled={!selectedAddressId || loadingStripe || creatingOrder}
           onClick={payWithStripe}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:opacity-50 dark:bg-gray-800 dark:ring-1 dark:ring-gray-700 dark:hover:bg-gray-700"
         >
           {loadingStripe ? (
             <BiLoader size={18} className="animate-spin" />

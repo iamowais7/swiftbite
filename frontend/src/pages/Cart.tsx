@@ -26,8 +26,8 @@ function Cart() {
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
           <BiCart className="h-8 w-8 text-brand" />
         </div>
-        <p className="text-lg font-semibold text-gray-700">Your cart is empty</p>
-        <p className="max-w-xs text-sm text-gray-400">
+        <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">Your cart is empty</p>
+        <p className="max-w-xs text-sm text-gray-400 dark:text-gray-500">
           Looks like you haven't added anything yet — go find something tasty.
         </p>
       </motion.div>
@@ -104,9 +104,9 @@ function Cart() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="mx-auto max-w-5xl py-6 px-4 space-y-6"
     >
-      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
-        <h2 className="text-xl font-bold text-gray-900">{restaurant.name}</h2>
-        <p className="text-sm text-gray-500">
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">{restaurant.name}</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           {restaurant.autoLocation.formattedAddress}
         </p>
       </div>
@@ -122,7 +122,7 @@ function Cart() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.05 }}
               whileHover={{ y: -3 }}
-              className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]"
+              className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
             >
               <img
                 src={item.image}
@@ -130,13 +130,13 @@ function Cart() {
                 className="h-20 w-20 rounded-xl object-cover"
               />
               <div className="flex-1">
-                <h3 className="font-bold text-gray-900">{item.name}</h3>
-                <p className="text-sm text-gray-500">₹{item.price}</p>
+                <h3 className="font-bold text-gray-900 dark:text-white">{item.name}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">₹{item.price}</p>
               </div>
               <div className="flex items-center gap-3">
                 <motion.button
                   whileTap={{ scale: 0.9 }}
-                  className="rounded-full border border-gray-200 p-2 text-gray-600 transition hover:border-brand hover:bg-brand/10 hover:text-brand disabled:opacity-50"
+                  className="rounded-full border border-gray-200 p-2 text-gray-600 transition hover:border-brand hover:bg-brand/10 hover:text-brand disabled:opacity-50 dark:border-gray-700 dark:text-gray-300"
                   disabled={isLoading}
                   onClick={() => decreaseQty(item._id)}
                 >
@@ -146,12 +146,12 @@ function Cart() {
                     <BiMinus size={16} />
                   )}
                 </motion.button>
-                <span className="w-4 text-center font-semibold text-gray-900">
+                <span className="w-4 text-center font-semibold text-gray-900 dark:text-white">
                   {cartItem.quantity}
                 </span>
                 <motion.button
                   whileTap={{ scale: 0.9 }}
-                  className="rounded-full border border-gray-200 p-2 text-gray-600 transition hover:border-brand hover:bg-brand/10 hover:text-brand disabled:opacity-50"
+                  className="rounded-full border border-gray-200 p-2 text-gray-600 transition hover:border-brand hover:bg-brand/10 hover:text-brand disabled:opacity-50 dark:border-gray-700 dark:text-gray-300"
                   disabled={isLoading}
                   onClick={() => increaseQty(item._id)}
                 >
@@ -162,7 +162,7 @@ function Cart() {
                   )}
                 </motion.button>
               </div>
-              <p className="w-20 text-right font-bold text-gray-900">
+              <p className="w-20 text-right font-bold text-gray-900 dark:text-white">
                 ₹{item.price * cartItem.quantity}
               </p>
             </motion.div>
@@ -170,29 +170,29 @@ function Cart() {
         })}
       </div>
 
-      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3">
-        <div className="flex justify-between text-sm text-gray-600">
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
           <span>Total Items</span>
           <span>{quantity}</span>
         </div>
-        <div className="flex justify-between text-sm text-gray-600">
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
           <span>Subtotal</span>
           <span>₹{subTotal}</span>
         </div>
-        <div className="flex justify-between text-sm text-gray-600">
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
           <span>Delivery Fee</span>
           <span>{deliveryFee === 0 ? "Free" : `₹${deliveryFee}`}</span>
         </div>
-        <div className="flex justify-between text-sm text-gray-600">
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
           <span>Platform Fee</span>
           <span>₹{platformFee}</span>
         </div>
         {subTotal < 250 && (
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Add items worth ₹{250 - subTotal} more to get free delivery
           </p>
         )}
-        <div className="flex justify-between border-t pt-2 text-base font-bold text-gray-900">
+        <div className="flex justify-between border-t pt-2 text-base font-bold text-gray-900 dark:border-gray-800 dark:text-white">
           <span>Grand Total</span>
           <span>₹{grandTotal}</span>
         </div>
@@ -214,7 +214,7 @@ function Cart() {
           whileTap={{ scale: 0.97 }}
           onClick={clearCart}
           disabled={clearingCart}
-          className="mt-3 flex w-full items-center justify-center gap-3 rounded-xl bg-gray-800 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-900 disabled:opacity-60"
+          className="mt-3 flex w-full items-center justify-center gap-3 rounded-xl bg-gray-800 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-900 disabled:opacity-60 dark:bg-gray-700 dark:hover:bg-gray-600"
         >
           Clear Cart
           <TbTrash size={16} />

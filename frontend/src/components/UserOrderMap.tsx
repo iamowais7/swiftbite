@@ -56,12 +56,12 @@ function UserOrderMap({ riderLocation, deliveryLocation }: Props) {
   return (
     <ErrorBoundary
       fallback={
-        <div className="rounded-xl bg-white shadow-sm p-4 text-sm text-gray-500 text-center">
+        <div className="rounded-xl bg-white shadow-sm p-4 text-sm text-gray-500 text-center dark:bg-gray-900 dark:text-gray-400 dark:shadow-none dark:ring-1 dark:ring-gray-800">
           🗺️ Map could not load.
         </div>
       }
     >
-      <div className="rounded-xl bg-white shadow-sm p-3">
+      <div className="rounded-xl bg-white shadow-sm p-3 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
         <MapContainer center={riderLocation} zoom={14} className="h-80 w-full rounded-lg">
           <TileLayer
             attribution="&copy; OpenStreetMap"

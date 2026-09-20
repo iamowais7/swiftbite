@@ -28,8 +28,8 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="flex min-h-[40vh] flex-col items-center justify-center gap-3 p-6 text-center">
           <span className="text-4xl">⚠️</span>
-          <p className="font-semibold text-gray-800">Something went wrong here.</p>
-          <p className="text-sm text-gray-500 max-w-md break-words">{this.state.message}</p>
+          <p className="font-semibold text-gray-800 dark:text-gray-200">Something went wrong here.</p>
+          <p className="text-sm text-gray-500 max-w-md break-words dark:text-gray-400">{this.state.message}</p>
           <button
             onClick={this.reset}
             className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"

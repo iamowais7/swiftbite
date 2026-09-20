@@ -49,7 +49,7 @@ function Admin() {
   if (loading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <p className="text-gray-500">Loading admin panel...</p>
+        <p className="text-gray-500 dark:text-gray-400">Loading admin panel...</p>
       </div>
     );
   }
@@ -67,14 +67,14 @@ function Admin() {
       className="mx-auto max-w-6xl space-y-6 px-6 py-6"
     >
       <div>
-        <h1 className="text-2xl font-extrabold text-gray-900">Admin Dashboard</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white">Admin Dashboard</h1>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Review and verify pending restaurants and riders on SwiftBite AI
         </p>
       </div>
 
       {/* Pill tab switcher */}
-      <div className="inline-flex items-center gap-1 rounded-full bg-gray-100 p-1">
+      <div className="inline-flex items-center gap-1 rounded-full bg-gray-100 p-1 dark:bg-gray-800">
         {tabs.map((t) => {
           const Icon = t.icon;
           const active = tab === t.key;
@@ -83,7 +83,7 @@ function Admin() {
               key={t.key}
               onClick={() => setTab(t.key)}
               className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-                active ? "text-white" : "text-gray-500 hover:text-gray-700"
+                active ? "text-white" : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               }`}
             >
               {active && (
@@ -98,7 +98,7 @@ function Admin() {
                 {t.label}
                 <span
                   className={`rounded-full px-1.5 py-0.5 text-[11px] font-bold ${
-                    active ? "bg-white/20 text-white" : "bg-gray-200 text-gray-600"
+                    active ? "bg-white/20 text-white" : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                   }`}
                 >
                   {t.count}
@@ -123,8 +123,8 @@ function Admin() {
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
                   <BiStore className="h-8 w-8 text-brand" />
                 </div>
-                <p className="text-lg font-semibold text-gray-700">No pending restaurants</p>
-                <p className="max-w-xs text-sm text-gray-400">
+                <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">No pending restaurants</p>
+                <p className="max-w-xs text-sm text-gray-400 dark:text-gray-500">
                   New restaurant signups will show up here for review.
                 </p>
               </div>
@@ -156,8 +156,8 @@ function Admin() {
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
                   <BiCycling className="h-8 w-8 text-brand" />
                 </div>
-                <p className="text-lg font-semibold text-gray-700">No pending riders</p>
-                <p className="max-w-xs text-sm text-gray-400">
+                <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">No pending riders</p>
+                <p className="max-w-xs text-sm text-gray-400 dark:text-gray-500">
                   New rider applications will show up here for review.
                 </p>
               </div>

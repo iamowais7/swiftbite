@@ -35,13 +35,13 @@ function OrderSuccess() {
     return (
       <div className="flex h-[60vh] flex-col items-center justify-center gap-3">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-brand border-t-transparent" />
-        <p className="text-sm text-gray-400">Verifying payment...</p>
+        <p className="text-sm text-gray-400 dark:text-gray-500">Verifying payment...</p>
       </div>
     );
   }
 
   return (
-    <div className="relative flex min-h-[70vh] items-center overflow-hidden px-4 justify-center bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white">
+    <div className="relative flex min-h-[70vh] items-center overflow-hidden px-4 justify-center bg-linear-to-br from-[#fff3f2] via-[#fff8f5] to-white dark:from-gray-900 dark:via-gray-950 dark:to-gray-950">
       <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-brand/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-brand/10 blur-3xl" />
 
@@ -49,13 +49,13 @@ function OrderSuccess() {
         initial={{ opacity: 0, y: 24, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative w-full max-w-md space-y-4 rounded-3xl bg-white/90 p-8 shadow-[0_20px_60px_rgba(226,55,68,0.12)] backdrop-blur-sm text-center"
+        className="relative w-full max-w-md space-y-4 rounded-3xl bg-white/90 p-8 shadow-[0_20px_60px_rgba(226,55,68,0.12)] backdrop-blur-sm text-center dark:bg-gray-900/90 dark:shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
       >
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
-          className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100"
+          className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30"
         >
           <motion.svg
             viewBox="0 0 24 24"
@@ -81,8 +81,8 @@ function OrderSuccess() {
           transition={{ duration: 0.4, delay: 0.5 }}
           className="space-y-1.5"
         >
-          <h1 className="text-2xl font-extrabold text-gray-900">Order Placed! 🎉</h1>
-          <p className="text-sm text-gray-500">Your Stripe payment was verified successfully on SwiftBite AI.</p>
+          <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white">Order Placed! 🎉</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Your Stripe payment was verified successfully on SwiftBite AI.</p>
         </motion.div>
 
         <motion.div

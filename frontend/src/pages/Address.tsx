@@ -66,7 +66,7 @@ const LocateMeButton = ({
     <button
       onClick={locateUser}
       className="absolute right-3 top-3 z-1000 flex items-center gap-2
-      rounded-xl bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-100"
+      rounded-xl bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:ring-1 dark:ring-gray-800 dark:hover:bg-gray-800"
     >
       <LuLocateFixed size={16} className="text-brand" />
       Use current location
@@ -184,9 +184,9 @@ const AddAddressPage = () => {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="mx-auto max-w-4xl px-4 py-6 space-y-6"
     >
-      <h1 className="text-2xl font-extrabold text-gray-900">Select Delivery Address</h1>
+      <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white">Select Delivery Address</h1>
       {/* 🗺 Map */}
-      <div className="relative h-100 w-full overflow-hidden rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
+      <div className="relative h-100 w-full overflow-hidden rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:ring-1 dark:ring-gray-800">
         <MapContainer
           center={[latitude || 28.6139, longitude || 77.209]}
           zoom={13}
@@ -208,7 +208,7 @@ const AddAddressPage = () => {
         <motion.div
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-start gap-2 rounded-xl bg-brand/10 p-3 text-sm text-gray-700"
+          className="flex items-start gap-2 rounded-xl bg-brand/10 p-3 text-sm text-gray-700 dark:text-gray-200"
         >
           <BiMapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
           {formattedAddress}
@@ -220,7 +220,7 @@ const AddAddressPage = () => {
         placeholder="Mobile number"
         value={mobile}
         onChange={(e) => setMobile(e.target.value)}
-        className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10"
+        className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
       />
       {/* ➕ Save */}
       <motion.button
@@ -236,7 +236,7 @@ const AddAddressPage = () => {
 
       {/* 📋 Saved Addresses */}
       <div className="space-y-3">
-        <h2 className="text-lg font-bold text-gray-900">Saved Addresses</h2>
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white">Saved Addresses</h2>
         {loading ? (
           <div className="flex items-center justify-center py-6">
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-brand border-t-transparent" />
@@ -246,8 +246,8 @@ const AddAddressPage = () => {
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
               <BiMapPin className="h-8 w-8 text-brand" />
             </div>
-            <p className="text-sm font-semibold text-gray-700">No addresses saved</p>
-            <p className="max-w-xs text-sm text-gray-400">
+            <p className="text-sm font-semibold text-gray-700 dark:text-gray-200">No addresses saved</p>
+            <p className="max-w-xs text-sm text-gray-400 dark:text-gray-500">
               Add a delivery address above so we know where to bring your order.
             </p>
           </div>
@@ -259,13 +259,13 @@ const AddAddressPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.05 }}
               whileHover={{ y: -3 }}
-              className="flex items-center justify-between gap-3 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]"
+              className="flex items-center justify-between gap-3 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
             >
               <div className="flex items-start gap-3">
                 <BiMapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                 <div>
-                  <p className="text-sm font-medium text-gray-800">{addr.formattedAddress}</p>
-                  <p className="text-xs text-gray-500">📞 {addr.mobile}</p>
+                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{addr.formattedAddress}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">📞 {addr.mobile}</p>
                 </div>
               </div>
               <motion.button

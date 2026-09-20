@@ -81,7 +81,7 @@ function Restaurant() {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="min-h-screen bg-gray-50 px-4 py-6 space-y-6"
+      className="min-h-screen bg-gray-50 px-4 py-6 space-y-6 dark:bg-gray-950"
     >
       <ResaurantProfile
         restaurant={restaurant}
@@ -91,8 +91,8 @@ function Restaurant() {
 
       <RestaurnatOrders restaurantId={restaurant._id} />
 
-      <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
-        <div className="flex gap-1 border-b border-gray-100 p-2">
+      <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <div className="flex gap-1 border-b border-gray-100 p-2 dark:border-gray-800 dark:bg-gray-800/50">
           {tabs.map((t) => (
             <button
               key={t.key}
@@ -100,7 +100,7 @@ function Restaurant() {
               className={`relative flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${
                 tab === t.key
                   ? "text-brand"
-                  : "text-gray-500 hover:text-gray-700"
+                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               }`}
             >
               {tab === t.key && (
@@ -138,8 +138,8 @@ function Restaurant() {
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
                     <span className="text-2xl">📊</span>
                   </div>
-                  <p className="font-semibold text-gray-700">Sales analytics coming soon</p>
-                  <p className="max-w-xs text-sm text-gray-400">
+                  <p className="font-semibold text-gray-700 dark:text-gray-200">Sales analytics coming soon</p>
+                  <p className="max-w-xs text-sm text-gray-400 dark:text-gray-500">
                     Track your revenue and order trends right here once it's ready.
                   </p>
                 </div>

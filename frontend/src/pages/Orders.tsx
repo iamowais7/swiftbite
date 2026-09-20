@@ -30,28 +30,28 @@ const statusLabel: Record<string, string> = {
 };
 
 const statusColor: Record<string, string> = {
-  placed:           "bg-yellow-100 text-yellow-700",
-  accepted:         "bg-orange-100 text-orange-700",
-  preparing:        "bg-blue-100 text-blue-700",
-  ready_for_rider:  "bg-indigo-100 text-indigo-700",
-  rider_assigned:   "bg-purple-100 text-purple-700",
-  picked_up:        "bg-pink-100 text-pink-700",
-  delivered:        "bg-green-100 text-green-700",
-  cancelled:        "bg-red-100 text-red-600",
+  placed:           "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+  accepted:         "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
+  preparing:        "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+  ready_for_rider:  "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400",
+  rider_assigned:   "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
+  picked_up:        "bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400",
+  delivered:        "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+  cancelled:        "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400",
 };
 
 function SkeletonRow() {
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3">
+    <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
       <div className="flex items-center justify-between">
         <div className="space-y-1.5">
-          <div className="h-3.5 w-28 animate-pulse rounded-full bg-gray-200" />
-          <div className="h-3 w-20 animate-pulse rounded-full bg-gray-200" />
+          <div className="h-3.5 w-28 animate-pulse rounded-full bg-gray-200 dark:bg-gray-800" />
+          <div className="h-3 w-20 animate-pulse rounded-full bg-gray-200 dark:bg-gray-800" />
         </div>
-        <div className="h-5 w-20 animate-pulse rounded-full bg-gray-200" />
+        <div className="h-5 w-20 animate-pulse rounded-full bg-gray-200 dark:bg-gray-800" />
       </div>
-      <div className="h-3 w-2/3 animate-pulse rounded-full bg-gray-200" />
-      <div className="h-3 w-1/4 animate-pulse rounded-full bg-gray-200" />
+      <div className="h-3 w-2/3 animate-pulse rounded-full bg-gray-200 dark:bg-gray-800" />
+      <div className="h-3 w-1/4 animate-pulse rounded-full bg-gray-200 dark:bg-gray-800" />
     </div>
   );
 }
@@ -97,7 +97,7 @@ function Orders() {
   if (loading) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-6 space-y-6">
-        <h1 className="text-2xl font-bold text-gray-900">My Orders</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">My Orders</h1>
         <div className="space-y-3">
           {Array.from({ length: 4 }).map((_, i) => (
             <SkeletonRow key={i} />
@@ -118,8 +118,8 @@ function Orders() {
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
           <BiReceipt className="h-8 w-8 text-brand" />
         </div>
-        <p className="text-lg font-semibold text-gray-700">No orders yet</p>
-        <p className="max-w-xs text-sm text-gray-400">
+        <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">No orders yet</p>
+        <p className="max-w-xs text-sm text-gray-400 dark:text-gray-500">
           Your order history will appear here once you place your first order on SwiftBite AI.
         </p>
       </motion.div>
@@ -136,11 +136,11 @@ function Orders() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="mx-auto max-w-3xl px-4 py-6 space-y-6"
     >
-      <h1 className="text-2xl font-bold text-gray-900">My Orders</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">My Orders</h1>
 
       {activeOrders.length > 0 && (
         <section className="space-y-3">
-          <h2 className="flex items-center gap-1.5 text-lg font-semibold text-gray-700">
+          <h2 className="flex items-center gap-1.5 text-lg font-semibold text-gray-700 dark:text-gray-200">
             <HiOutlineClock className="h-5 w-5 text-brand" />
             Active Orders
           </h2>
@@ -159,7 +159,7 @@ function Orders() {
 
       {completedOrders.length > 0 && (
         <section className="space-y-3">
-          <h2 className="flex items-center gap-1.5 text-lg font-semibold text-gray-700">
+          <h2 className="flex items-center gap-1.5 text-lg font-semibold text-gray-700 dark:text-gray-200">
             <HiOutlineCheckCircle className="h-5 w-5 text-brand" />
             Past Orders
           </h2>
@@ -196,23 +196,23 @@ const OrderRow = ({
     transition={{ duration: 0.3, delay: Math.min(index, 8) * 0.05 }}
     whileHover={{ y: -3 }}
     whileTap={{ scale: 0.98 }}
-    className="cursor-pointer rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]"
+    className="cursor-pointer rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
     onClick={onClick}
   >
     <div className="flex justify-between items-center">
       <div>
-        <p className="text-sm font-semibold text-gray-800">
+        <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
           Order #{order._id.slice(-6).toUpperCase()}
         </p>
-        <p className="text-xs text-gray-400 mt-0.5">
+        <p className="text-xs text-gray-400 mt-0.5 dark:text-gray-500">
           {order.restaurantName}
         </p>
       </div>
-      <span className={`text-xs font-medium px-2 py-1 rounded-full capitalize ${statusColor[order.status] ?? "bg-gray-100 text-gray-600"}`}>
+      <span className={`text-xs font-medium px-2 py-1 rounded-full capitalize ${statusColor[order.status] ?? "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"}`}>
         {statusLabel[order.status] ?? order.status}
       </span>
     </div>
-    <div className="mt-2 text-sm text-gray-500">
+    <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
       {order.items.slice(0, 3).map((item, i) => (
         <span key={i}>
           {item.name} ×{item.quantity}
@@ -222,7 +222,7 @@ const OrderRow = ({
       {order.items.length > 3 && ` +${order.items.length - 3} more`}
     </div>
     <div className="mt-2 flex justify-between text-sm font-semibold">
-      <span className="text-gray-500">Total</span>
+      <span className="text-gray-500 dark:text-gray-400">Total</span>
       <span className="text-brand">₹{order.totalAmount}</span>
     </div>
   </motion.div>

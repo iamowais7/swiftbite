@@ -83,10 +83,10 @@ const RiderOrderRequest = ({ orderId, onAccepted }: Props) => {
         scale: { duration: 0.3 },
         boxShadow: { duration: 1.6, repeat: Infinity, ease: "easeInOut" },
       }}
-      className="space-y-3 rounded-2xl border-2 border-green-400 bg-white p-4"
+      className="space-y-3 rounded-2xl border-2 border-green-400 bg-white p-4 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800"
     >
       {/* Timer bar */}
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
         <motion.div
           animate={{ width: `${pct}%` }}
           transition={{ duration: 1, ease: "linear" }}
@@ -102,13 +102,13 @@ const RiderOrderRequest = ({ orderId, onAccepted }: Props) => {
           </span>
           New Delivery Request
         </p>
-        <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${secondsLeft <= 3 ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"}`}>
+        <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${secondsLeft <= 3 ? "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400" : "bg-green-100 text-green-600"}`}>
           {secondsLeft}s
         </span>
       </div>
 
-      <p className="text-xs text-gray-500">
-        Order ID: <span className="font-semibold text-gray-700">#{orderId.slice(-6).toUpperCase()}</span>
+      <p className="text-xs text-gray-500 dark:text-gray-400">
+        Order ID: <span className="font-semibold text-gray-700 dark:text-gray-200">#{orderId.slice(-6).toUpperCase()}</span>
       </p>
 
       <motion.button

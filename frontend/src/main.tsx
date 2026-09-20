@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import { AppProvider } from './context/AppContext.tsx'
 import "leaflet/dist/leaflet.css";
 import { SocketProvider } from './context/SocketContext.tsx'
+import { ThemeProvider } from './context/ThemeContext.tsx'
 import ErrorBoundary from './components/ErrorBoundary.tsx'
 
 // Re-export from config so existing imports like `import { authService } from "../main"` still work
@@ -13,14 +14,16 @@ export { authService, restaurantService, utilsService, realtimeService, riderSer
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-      <AppProvider>
-        <SocketProvider>
-          <ErrorBoundary>
-            <App />
-          </ErrorBoundary>
-        </SocketProvider>
-      </AppProvider>
-    </GoogleOAuthProvider>
+    <ThemeProvider>
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <AppProvider>
+          <SocketProvider>
+            <ErrorBoundary>
+              <App />
+            </ErrorBoundary>
+          </SocketProvider>
+        </AppProvider>
+      </GoogleOAuthProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

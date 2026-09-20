@@ -104,8 +104,8 @@ function Order() {
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
           <BiReceipt className="h-8 w-8 text-brand" />
         </div>
-        <p className="text-lg font-semibold text-gray-700">No order found</p>
-        <p className="max-w-xs text-sm text-gray-400">
+        <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">No order found</p>
+        <p className="max-w-xs text-sm text-gray-400 dark:text-gray-500">
           This order may have been removed or the link is incorrect.
         </p>
       </div>
@@ -122,15 +122,15 @@ function Order() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="mx-auto max-w-3xl px-4 py-6 space-y-4"
     >
-      <h1 className="text-xl font-bold text-gray-900">Order #{order._id.slice(-6).toUpperCase()}</h1>
+      <h1 className="text-xl font-bold text-gray-900 dark:text-white">Order #{order._id.slice(-6).toUpperCase()}</h1>
 
       {/* Status timeline / badge */}
       {isCancelled ? (
-        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
+        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600 dark:border-red-900/50 dark:bg-red-900/20 dark:text-red-400">
           This order was cancelled
         </div>
       ) : (
-        <div className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
+        <div className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
           <div className="flex items-center">
             {STATUS_STEPS.map((step, i) => {
               const done = i <= currentStepIndex;
@@ -144,14 +144,14 @@ function Order() {
                       animate={{ scale: isCurrent ? 1.15 : 1 }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white ${
-                        done ? "bg-brand" : "bg-gray-200"
+                        done ? "bg-brand" : "bg-gray-200 dark:bg-gray-800"
                       } ${isCurrent ? "ring-4 ring-brand/20" : ""}`}
                     >
                       {done && <BiCheckCircle className="h-4 w-4" />}
                     </motion.div>
                     <span
                       className={`hidden text-[10px] font-medium sm:block ${
-                        done ? "text-gray-700" : "text-gray-400"
+                        done ? "text-gray-700 dark:text-gray-200" : "text-gray-400 dark:text-gray-500"
                       }`}
                     >
                       {stepLabel[step]}
@@ -160,7 +160,7 @@ function Order() {
                   {!isLast && (
                     <div
                       className={`mx-1 h-1 flex-1 rounded-full transition-colors duration-500 ${
-                        i < currentStepIndex ? "bg-brand" : "bg-gray-200"
+                        i < currentStepIndex ? "bg-brand" : "bg-gray-200 dark:bg-gray-800"
                       }`}
                     />
                   )}
@@ -175,39 +175,39 @@ function Order() {
       )}
 
       {/* Items */}
-      <div className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-2">
-        <h2 className="flex items-center gap-1.5 font-semibold text-gray-900">
+      <div className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-2 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <h2 className="flex items-center gap-1.5 font-semibold text-gray-900 dark:text-white">
           <BiRestaurant className="h-4 w-4 text-brand" /> Items
         </h2>
         {order.items.map((item, i) => (
-          <div className="flex justify-between text-sm text-gray-600" key={i}>
+          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300" key={i}>
             <span>{item.name} × {item.quantity}</span>
-            <span className="font-medium text-gray-800">₹{item.price * item.quantity}</span>
+            <span className="font-medium text-gray-800 dark:text-gray-100">₹{item.price * item.quantity}</span>
           </div>
         ))}
       </div>
 
       {/* Delivery Address */}
-      <div className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-1.5">
-        <h2 className="flex items-center gap-1.5 font-semibold text-gray-900">
+      <div className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-1.5 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <h2 className="flex items-center gap-1.5 font-semibold text-gray-900 dark:text-white">
           <BiMapPin className="h-4 w-4 text-brand" /> Delivery Address
         </h2>
-        <p className="text-sm text-gray-600">{order.deliveryAddress.formattedAddress}</p>
-        <p className="flex items-center gap-1.5 text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-300">{order.deliveryAddress.formattedAddress}</p>
+        <p className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300">
           <BiPhone className="h-3.5 w-3.5 text-brand" /> {order.deliveryAddress.mobile}
         </p>
       </div>
 
       {/* Bill */}
-      <div className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-2">
-        <h2 className="flex items-center gap-1.5 font-semibold text-gray-900">
+      <div className="rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-2 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800">
+        <h2 className="flex items-center gap-1.5 font-semibold text-gray-900 dark:text-white">
           <BiReceipt className="h-4 w-4 text-brand" /> Bill Summary
         </h2>
-        <div className="flex justify-between text-sm text-gray-600"><span>Subtotal</span><span>₹{order.subTotal}</span></div>
-        <div className="flex justify-between text-sm text-gray-600"><span>Delivery Fee</span><span>₹{order.deliveryFee}</span></div>
-        <div className="flex justify-between text-sm text-gray-600"><span>Platform Fee</span><span>₹{order.platfromFee}</span></div>
-        <div className="flex justify-between text-sm font-semibold text-gray-900 border-t border-gray-100 pt-2"><span>Total</span><span className="text-brand">₹{order.totalAmount}</span></div>
-        <p className="text-xs text-gray-400">Payment: {order.paymentMethod} · {order.paymentStatus}</p>
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300"><span>Subtotal</span><span>₹{order.subTotal}</span></div>
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300"><span>Delivery Fee</span><span>₹{order.deliveryFee}</span></div>
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300"><span>Platform Fee</span><span>₹{order.platfromFee}</span></div>
+        <div className="flex justify-between text-sm font-semibold text-gray-900 border-t border-gray-100 pt-2 dark:text-white dark:border-gray-800"><span>Total</span><span className="text-brand">₹{order.totalAmount}</span></div>
+        <p className="text-xs text-gray-400 dark:text-gray-500">Payment: {order.paymentMethod} · {order.paymentStatus}</p>
       </div>
 
       {/* Live map */}
@@ -217,7 +217,7 @@ function Order() {
           deliveryLocation={[order.deliveryAddress.latitude, order.deliveryAddress.longitude]}
         />
       ) : (order.status === "rider_assigned" || order.status === "picked_up") ? (
-        <div className="flex items-center justify-center gap-2 rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-sm text-gray-500">
+        <div className="flex items-center justify-center gap-2 rounded-2xl bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-sm text-gray-500 dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800 dark:text-gray-400">
           <HiOutlineTruck className="h-5 w-5 text-brand" />
           Waiting for rider location...
         </div>

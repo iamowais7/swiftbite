@@ -18,7 +18,7 @@ function RestaurantCard({ id, image, name, distance, isOpen }: Props) {
       whileHover={{ y: -6 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className={`group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow duration-300 hover:shadow-[0_12px_30px_rgba(226,55,68,0.18)] ${
+      className={`group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow duration-300 hover:shadow-[0_12px_30px_rgba(226,55,68,0.18)] dark:bg-gray-900 dark:shadow-none dark:ring-1 dark:ring-gray-800 ${
         !isOpen ? "opacity-80" : ""
       }`}
       onClick={() => navigate(`/restaurant/${id}`)}
@@ -52,8 +52,8 @@ function RestaurantCard({ id, image, name, distance, isOpen }: Props) {
 
       {/* Info */}
       <div className="space-y-1 p-3.5">
-        <h3 className="truncate text-[15px] font-bold text-gray-900">{name}</h3>
-        <p className="flex items-center gap-1 text-xs font-medium text-gray-500">
+        <h3 className="truncate text-[15px] font-bold text-gray-900 dark:text-white">{name}</h3>
+        <p className="flex items-center gap-1 text-xs font-medium text-gray-500 dark:text-gray-400">
           <BiSolidMap className="h-3.5 w-3.5 text-brand" />
           {distance} km away
         </p>
