@@ -47,7 +47,6 @@ const Navbar =  () => {
               </Link>
             </>
           )}
-          <ThemeToggle />
           {
             isAuth ? (
               <Link to="/account" className="flex items-center gap-2" title="Account">
@@ -65,6 +64,7 @@ const Navbar =  () => {
               </Link>
             ):(<Link to="/login" className="font-medium text-brand">Login</Link>)
           }
+          <ThemeToggle />
         </div>
       </div>
       {/* search bar */}

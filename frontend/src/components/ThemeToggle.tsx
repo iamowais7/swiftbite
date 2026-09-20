@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { HiSun, HiMoon } from "react-icons/hi2";
 import { useTheme } from "../context/ThemeContext";
 
@@ -8,23 +8,34 @@ function ThemeToggle() {
 
   return (
     <motion.button
-      whileTap={{ scale: 0.92 }}
+      whileTap={{ scale: 0.85 }}
       onClick={toggleTheme}
       aria-label="Toggle dark mode"
-      className="relative flex h-8 w-14 items-center rounded-full bg-gray-200 px-1 transition-colors dark:bg-gray-700"
+      className="flex h-9 w-9 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
     >
-      <motion.span
-        layout
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-        className="flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-sm"
-        style={{ marginLeft: isDark ? "auto" : 0 }}
-      >
+      <AnimatePresence mode="wait" initial={false}>
         {isDark ? (
-          <HiMoon className="h-3.5 w-3.5 text-brand" />
+          <motion.span
+            key="moon"
+            initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
+            transition={{ duration: 0.2 }}
+          >
+            <HiMoon className="h-5 w-5" />
+          </motion.span>
         ) : (
-          <HiSun className="h-3.5 w-3.5 text-amber-500" />
+          <motion.span
+            key="sun"
+            initial={{ opacity: 0, rotate: 90, scale: 0.6 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, rotate: -90, scale: 0.6 }}
+            transition={{ duration: 0.2 }}
+          >
+            <HiSun className="h-5 w-5 text-amber-500" />
+          </motion.span>
         )}
-      </motion.span>
+      </AnimatePresence>
     </motion.button>
   );
 }
