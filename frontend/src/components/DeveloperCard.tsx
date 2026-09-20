@@ -55,18 +55,25 @@ function DeveloperCard() {
         )}
       </AnimatePresence>
 
-      <motion.button
-        whileTap={{ scale: 0.92 }}
-        onClick={() => setOpen((v) => !v)}
-        aria-label="About the developer"
-        className="group h-14 w-14 overflow-hidden rounded-full ring-2 ring-brand shadow-lg"
-      >
-        <img
-          src="/owais.jpeg"
-          alt="Owais Khan"
-          className="h-full w-full object-cover blur-sm transition duration-300 group-hover:blur-none"
-        />
-      </motion.button>
+      <div className="group relative">
+        <span className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-y-1/2 whitespace-nowrap rounded-lg bg-gray-900 px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 dark:bg-gray-700">
+          Meet the creator
+          <span className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700" />
+        </span>
+
+        <motion.button
+          whileTap={{ scale: 0.92 }}
+          onClick={() => setOpen((v) => !v)}
+          aria-label="About the developer"
+          className="h-14 w-14 overflow-hidden rounded-full ring-2 ring-brand shadow-lg"
+        >
+          <img
+            src="/owais.jpeg"
+            alt="Owais Khan"
+            className="h-full w-full object-cover blur-sm transition duration-300 group-hover:blur-none"
+          />
+        </motion.button>
+      </div>
     </div>
   );
 }

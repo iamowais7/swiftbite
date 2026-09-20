@@ -33,16 +33,20 @@ const Navbar =  () => {
         </Link>
 
         <div className="flex items-center gap-4">
-          <Link to={'/help'} className="flex items-center gap-1 font-medium text-gray-600 hover:text-brand dark:text-gray-300" title="Help">
-            <HiOutlineQuestionMarkCircle className="h-6 w-6" />
-            <span className="hidden sm:inline">Help</span>
-          </Link>
-          <Link to={'/cart'} className="relative">
-          <CgShoppingCart className="h-6 w-6 text-brand"/>
-          <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">{quantity}
+          {isAuth && (
+            <>
+              <Link to={'/help'} className="flex items-center gap-1 font-medium text-gray-600 hover:text-brand dark:text-gray-300" title="Help">
+                <HiOutlineQuestionMarkCircle className="h-6 w-6" />
+                <span className="hidden sm:inline">Help</span>
+              </Link>
+              <Link to={'/cart'} className="relative">
+              <CgShoppingCart className="h-6 w-6 text-brand"/>
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">{quantity}
 
-          </span>
-          </Link>
+              </span>
+              </Link>
+            </>
+          )}
           <ThemeToggle />
           {
             isAuth ? (
