@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { IMenuItem, IRestaurant } from "../types"
 import axios from 'axios';
+import { motion, AnimatePresence } from 'framer-motion';
 import { restaurantService } from '../main';
 import AddRestaurant from '../components/AddRestaurant';
 import ResaurantProfile from '../components/ResaurantProfile';
@@ -60,7 +61,7 @@ function Restaurant() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p className="text-gray-500">Loading your restaurant...</p>
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-brand border-t-transparent" />
       </div>
     );
   }
@@ -69,8 +70,19 @@ function Restaurant() {
     return <AddRestaurant fetchMyRestaurant={fetchMyRestaurant} />;
   }
 
+  const tabs: { key: SellerTab; label: string }[] = [
+    { key: "menu",     label: "Menu Items" },
+    { key: "add-item", label: "Add Item"   },
+    { key: "sales",    label: "Sales"      },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-6 space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="min-h-screen bg-gray-50 px-4 py-6 space-y-6"
+    >
       <ResaurantProfile
         restaurant={restaurant}
         onUpdate={(updated) => setRestaurant(updated)}
@@ -79,46 +91,64 @@ function Restaurant() {
 
       <RestaurnatOrders restaurantId={restaurant._id} />
 
-      <div className="rounded-xl bg-white shadow-sm">
-        <div className="flex border-b">
-          {[
-            { key: "menu",     label: "Menu Items" },
-            { key: "add-item", label: "Add Item"   },
-            { key: "sales",    label: "Sales"      },
-          ].map((t) => (
+      <div className="rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
+        <div className="flex gap-1 border-b border-gray-100 p-2">
+          {tabs.map((t) => (
             <button
               key={t.key}
-              onClick={() => setTab(t.key as SellerTab)}
-              className={`flex-1 px-4 py-3 text-sm font-medium transition ${
+              onClick={() => setTab(t.key)}
+              className={`relative flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${
                 tab === t.key
-                  ? "border-b-2 border-[#E23744] text-[#E23744]"
+                  ? "text-brand"
                   : "text-gray-500 hover:text-gray-700"
               }`}
             >
-              {t.label}
+              {tab === t.key && (
+                <motion.span
+                  layoutId="seller-tab-pill"
+                  className="absolute inset-0 rounded-xl bg-brand/10"
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                />
+              )}
+              <span className="relative">{t.label}</span>
             </button>
           ))}
         </div>
         <div className="p-5">
-          {tab === "menu" && (
-            <MenuItems
-              items={menuItems}
-              onItemDeleted={() => fetchMenuItems(restaurant._id)}
-              isSeller={true}
-            />
-          )}
-          {tab === "add-item" && (
-            <AddMenuItem onItemAdded={() => fetchMenuItems(restaurant._id)} />
-          )}
-          {tab === "sales" && (
-            <div className="text-center py-10 text-gray-400">
-              <p className="text-4xl mb-2">📊</p>
-              <p>Sales analytics coming soon</p>
-            </div>
-          )}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+            >
+              {tab === "menu" && (
+                <MenuItems
+                  items={menuItems}
+                  onItemDeleted={() => fetchMenuItems(restaurant._id)}
+                  isSeller={true}
+                />
+              )}
+              {tab === "add-item" && (
+                <AddMenuItem onItemAdded={() => fetchMenuItems(restaurant._id)} />
+              )}
+              {tab === "sales" && (
+                <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
+                    <span className="text-2xl">📊</span>
+                  </div>
+                  <p className="font-semibold text-gray-700">Sales analytics coming soon</p>
+                  <p className="max-w-xs text-sm text-gray-400">
+                    Track your revenue and order trends right here once it's ready.
+                  </p>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

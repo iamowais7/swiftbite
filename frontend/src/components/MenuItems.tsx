@@ -5,6 +5,7 @@ import { BsEye, BsEyeSlash, BsCart } from "react-icons/bs";
 import { restaurantService } from "../main";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useAppData } from "../context/AppContext";
 import { useSound } from "../hooks/useSound";
 
@@ -76,27 +77,39 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
     }
   };
 
+  if (items.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
+        <p className="text-sm font-medium text-gray-400">No items to show</p>
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {items.map((item) => {
+      {items.map((item, i) => {
         const isLoading = loadingItemId === item._id;
         return (
-          <div
-            className={`relative flex gap-4 rounded-lg bg-white p-4 shadow-sm transition ${
+          <motion.div
+            key={item._id}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.04 }}
+            whileHover={{ y: -3 }}
+            className={`relative flex gap-4 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)] ${
               !item.isAvailable ? "opacity-70" : ""
             }`}
-            key={item._id}
           >
             <div className="relative shrink-0">
               <img
                 src={item.image}
                 alt=""
-                className={`h-20 w-20 rounded object-cover ${
+                className={`h-20 w-20 rounded-xl object-cover ${
                   !item.isAvailable ? "grayscale brightness-75" : ""
                 }`}
               />
               {!item.isAvailable && (
-                <span className="absolute inset-0 flex items-center justify-center rounded bg-black/60 text-xs font-semibold text-white">
+                <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/60 text-[10px] font-semibold text-white">
                   Not Available
                 </span>
               )}
@@ -104,7 +117,7 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
 
             <div className="flex flex-1 flex-col justify-between">
               <div>
-                <h3 className="font-semibold">{item.name}</h3>
+                <h3 className="font-bold text-gray-900">{item.name}</h3>
                 {item.description && (
                   <p className="text-sm text-gray-500 line-clamp-2">
                     {item.description}
@@ -112,10 +125,11 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
                 )}
               </div>
               <div className="flex items-center justify-between">
-                <p className="font-medium">₹{item.price}</p>
+                <p className="font-bold text-brand">₹{item.price}</p>
                 {isSeller && (
-                  <div className="flex gap-2">
-                    <button
+                  <div className="flex gap-1">
+                    <motion.button
+                      whileTap={{ scale: 0.9 }}
                       onClick={() => toggleAvailability(item._id)}
                       className="rounded-lg p-2 text-gray-600 hover:bg-gray-100"
                     >
@@ -124,23 +138,26 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
                       ) : (
                         <BsEyeSlash size={18} />
                       )}
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
+                      whileTap={{ scale: 0.9 }}
                       onClick={() => handleDelete(item._id)}
-                      className="rounded-lg p-2 text-[#E23744] hover:bg-red-50"
+                      className="rounded-lg p-2 text-brand hover:bg-brand/10"
                     >
                       <BiTrash size={18} />
-                    </button>
+                    </motion.button>
                   </div>
                 )}
                 {!isSeller && (
-                  <button
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
+                    whileHover={item.isAvailable ? { scale: 1.08 } : {}}
                     disabled={!item.isAvailable || isLoading}
                     onClick={() => addToCart(item.restaurantId, item._id)}
                     className={`flex items-center justify-center rounded-lg p-2 ${
                       !item.isAvailable || isLoading
                         ? "cursor-not-allowed text-gray-400"
-                        : "text-[#E23744] hover:bg-red-50"
+                        : "text-brand hover:bg-brand/10"
                     }`}
                   >
                     {isLoading ? (
@@ -148,11 +165,11 @@ function MenuItems({ items, onItemDeleted, isSeller }: MenuItemsProps) {
                     ) : (
                       <BsCart size={18} />
                     )}
-                  </button>
+                  </motion.button>
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         );
       })}
     </div>

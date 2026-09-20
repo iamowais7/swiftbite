@@ -8,7 +8,7 @@ type ChatMessage = { role: "user" | "assistant"; content: string };
 function AiSupportChat() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: "assistant", content: "Hi! Ask me anything about your SwiftBite orders." },
+    { role: "assistant", content: "Hi! Ask me anything about your SwiftBite AI orders." },
   ]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -44,7 +44,7 @@ function AiSupportChat() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#E23744] text-white shadow-lg cursor-pointer"
+        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-white shadow-lg cursor-pointer"
         aria-label="Open order support chat"
       >
         <HiSparkles className="h-6 w-6" />
@@ -54,9 +54,9 @@ function AiSupportChat() {
 
   return (
     <div className="fixed bottom-5 right-5 z-50 flex h-[28rem] w-80 flex-col overflow-hidden rounded-xl bg-white shadow-2xl border">
-      <div className="flex items-center justify-between bg-[#E23744] px-4 py-3 text-white">
+      <div className="flex items-center justify-between bg-brand px-4 py-3 text-white">
         <span className="flex items-center gap-2 text-sm font-semibold">
-          <HiSparkles className="h-4 w-4" /> SwiftBite Support
+          <HiSparkles className="h-4 w-4" /> SwiftBite AI Support
         </span>
         <button onClick={() => setOpen(false)} aria-label="Close chat" className="cursor-pointer">
           <HiXMark className="h-5 w-5" />
@@ -68,7 +68,7 @@ function AiSupportChat() {
           <div
             key={i}
             className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
-              m.role === "user" ? "ml-auto bg-[#E23744] text-white" : "bg-gray-100 text-gray-800"
+              m.role === "user" ? "ml-auto bg-brand text-white" : "bg-gray-100 text-gray-800"
             }`}
           >
             {m.content}
@@ -89,7 +89,7 @@ function AiSupportChat() {
         <button
           onClick={sendMessage}
           disabled={sending}
-          className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#E23744] text-white disabled:opacity-50 cursor-pointer"
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand text-white disabled:opacity-50 cursor-pointer"
           aria-label="Send"
         >
           <HiPaperAirplane className="h-4 w-4" />

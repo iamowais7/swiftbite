@@ -1,5 +1,8 @@
+import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
+import { BiCheckCircle, BiLoader, BiMapPin, BiPhone } from "react-icons/bi";
 import { aminService } from "../main";
 
 function AdminRestrauntCard({
@@ -9,8 +12,11 @@ function AdminRestrauntCard({
   restaurant: any;
   onVerify: () => void;
 }) {
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+
   const verify = async () => {
     try {
+      setStatus("loading");
       await axios.patch(
         `${aminService}/api/v1/verify/restaurant/${restaurant._id}`,
         {},
@@ -20,30 +26,68 @@ function AdminRestrauntCard({
           },
         }
       );
+      setStatus("success");
       toast.success("Restaurant verified");
-      onVerify();
+      setTimeout(() => {
+        onVerify();
+      }, 700);
     } catch (error) {
+      setStatus("idle");
       toast.error("Failed to verify restaurant");
     }
   };
 
   return (
-    <div className="rounded-xl bg-white p-4 shadow space-y-2">
-      <img
-        src={restaurant.image}
-        className="h-40 w-full object-cover rounded"
-        alt=""
-      />
-      <h3>{restaurant.name}</h3>
-      <p className="text-sm text-gray-500">{restaurant.phone}</p>
-      <p>{restaurant.autoLocation?.formattedAddress}</p>
-      <button
-        className="w-full rounded bg-green-500 py-2 text-white hover:bg-green-600"
-        onClick={verify}
-      >
-        Verify Restaurant
-      </button>
-    </div>
+    <motion.div
+      whileHover={{ y: -3 }}
+      className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]"
+    >
+      <div className="relative h-40 w-full overflow-hidden">
+        <img
+          src={restaurant.image}
+          className="h-full w-full object-cover"
+          alt={restaurant.name}
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/0 to-black/0" />
+        <span className="absolute top-2 right-2 rounded-full bg-white/90 px-2 py-1 text-[10px] font-semibold text-brand backdrop-blur-sm">
+          PENDING
+        </span>
+      </div>
+
+      <div className="space-y-2 p-4">
+        <h3 className="font-bold text-gray-900">{restaurant.name}</h3>
+        <p className="flex items-center gap-1.5 text-sm text-gray-500">
+          <BiPhone className="h-4 w-4 shrink-0 text-brand" />
+          {restaurant.phone}
+        </p>
+        <p className="flex items-center gap-1.5 text-sm text-gray-500">
+          <BiMapPin className="h-4 w-4 shrink-0 text-brand" />
+          <span className="truncate">{restaurant.autoLocation?.formattedAddress}</span>
+        </p>
+
+        <motion.button
+          whileHover={status === "idle" ? { scale: 1.02 } : {}}
+          whileTap={status === "idle" ? { scale: 0.97 } : {}}
+          disabled={status !== "idle"}
+          onClick={verify}
+          className={`flex w-full items-center justify-center gap-1.5 rounded-xl py-2 text-sm font-semibold text-white shadow-sm transition-colors disabled:cursor-not-allowed ${
+            status === "success" ? "bg-green-600" : "bg-green-500 hover:bg-green-600"
+          }`}
+        >
+          {status === "loading" && (
+            <>
+              <BiLoader className="h-4 w-4 animate-spin" /> Verifying...
+            </>
+          )}
+          {status === "success" && (
+            <>
+              <BiCheckCircle className="h-4 w-4" /> Verified
+            </>
+          )}
+          {status === "idle" && "Verify Restaurant"}
+        </motion.button>
+      </div>
+    </motion.div>
   );
 }
 

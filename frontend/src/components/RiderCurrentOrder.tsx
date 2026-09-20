@@ -1,6 +1,8 @@
 import axios from "axios";
 import { riderService } from "../main";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
+import { BiPhoneCall } from "react-icons/bi";
 import type { IOrder } from "../types";
 
 interface Props {
@@ -30,71 +32,84 @@ function RiderCurrentOrder({ order, onStatusUpdate }: Props) {
   const address = order?.deliveryAddress;
 
   return (
-    <div className="rounded-xl bg-white shadow-sm p-4 space-y-4">
-      <h1 className="font-semibold text-gray-800">Current Order</h1>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="space-y-4 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]"
+    >
+      <h1 className="font-bold text-gray-900">Current Order</h1>
 
-      <div className="text-sm text-gray-600 space-y-1">
+      <div className="space-y-1.5 text-sm text-gray-600">
         <p>
-          <b>Pickup:</b> {order.restaurantName}
+          <b className="font-semibold text-gray-800">Pickup:</b> {order.restaurantName}
         </p>
 
         <p>
-          <b>Drop:</b> {address?.formattedAddress ?? "—"}
+          <b className="font-semibold text-gray-800">Drop:</b> {address?.formattedAddress ?? "—"}
         </p>
 
         <p>
-          <b>Total:</b> ₹{order.totalAmount}
+          <b className="font-semibold text-gray-800">Total:</b> ₹{order.totalAmount}
         </p>
 
         <p>
-          <b>Your Earning:</b> ₹{order.riderAmount}
+          <b className="font-semibold text-gray-800">Your Earning:</b>{" "}
+          <span className="font-bold text-brand">₹{order.riderAmount}</span>
         </p>
 
-        <p>
-          <b>Status:</b>{" "}
-          <span className="capitalize text-blue-600">
+        <p className="flex items-center gap-1.5">
+          <b className="font-semibold text-gray-800">Status:</b>
+          <span className="rounded-full bg-brand/10 px-2.5 py-0.5 text-xs font-semibold capitalize text-brand">
             {order.status.replace("_", " ")}
           </span>
         </p>
       </div>
 
       {address?.mobile && (
-        <div className="flex items-center justify-between rounded-lg border p-3">
+        <div className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50 p-3">
           <div className="text-sm">
             <p className="text-gray-500">Customer Phone</p>
             <p className="font-semibold text-gray-800">
               {address.mobile}
             </p>
           </div>
-          <a
+          <motion.a
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
             href={`tel:${address.mobile}`}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-semibold"
+            className="flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
           >
+            <BiPhoneCall className="h-4 w-4" />
             Call
-          </a>
+          </motion.a>
         </div>
       )}
 
       <div className="space-y-2">
         {order.status === "rider_assigned" && (
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
             onClick={updateStatus}
-            className="w-full bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl py-2 font-semibold"
+            className="w-full rounded-xl bg-yellow-500 py-2.5 font-semibold text-white shadow-sm transition hover:bg-yellow-600"
           >
             Reached Restaurant
-          </button>
+          </motion.button>
         )}
 
         {order.status === "picked_up" && (
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
             onClick={updateStatus}
-            className="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl py-2 font-semibold"
+            className="w-full rounded-xl bg-green-500 py-2.5 font-semibold text-white shadow-sm transition hover:bg-green-600"
           >
             Mark as Delivered
-          </button>
+          </motion.button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

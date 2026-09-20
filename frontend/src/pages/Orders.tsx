@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useSocket } from "../context/SocketContext";
 import { restaurantService } from "../main";
 import axios from "axios";
 import type { IOrder } from "../types";
 import { useSound } from "../hooks/useSound";
+import { BiReceipt } from "react-icons/bi";
+import { HiOutlineClock, HiOutlineCheckCircle } from "react-icons/hi2";
 
 const ACTIVE_STATUSES = [
   "placed",
@@ -36,6 +39,22 @@ const statusColor: Record<string, string> = {
   delivered:        "bg-green-100 text-green-700",
   cancelled:        "bg-red-100 text-red-600",
 };
+
+function SkeletonRow() {
+  return (
+    <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="space-y-1.5">
+          <div className="h-3.5 w-28 animate-pulse rounded-full bg-gray-200" />
+          <div className="h-3 w-20 animate-pulse rounded-full bg-gray-200" />
+        </div>
+        <div className="h-5 w-20 animate-pulse rounded-full bg-gray-200" />
+      </div>
+      <div className="h-3 w-2/3 animate-pulse rounded-full bg-gray-200" />
+      <div className="h-3 w-1/4 animate-pulse rounded-full bg-gray-200" />
+    </div>
+  );
+}
 
 function Orders() {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -77,19 +96,33 @@ function Orders() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <p className="text-gray-400">Loading orders...</p>
+      <div className="mx-auto max-w-3xl px-4 py-6 space-y-6">
+        <h1 className="text-2xl font-bold text-gray-900">My Orders</h1>
+        <div className="space-y-3">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <SkeletonRow key={i} />
+          ))}
+        </div>
       </div>
     );
   }
 
   if (orders.length === 0) {
     return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3">
-        <span className="text-5xl">🍽️</span>
-        <p className="text-gray-500 font-medium">No orders yet</p>
-        <p className="text-sm text-gray-400">Your order history will appear here</p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="flex min-h-[60vh] flex-col items-center justify-center gap-3 text-center"
+      >
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
+          <BiReceipt className="h-8 w-8 text-brand" />
+        </div>
+        <p className="text-lg font-semibold text-gray-700">No orders yet</p>
+        <p className="max-w-xs text-sm text-gray-400">
+          Your order history will appear here once you place your first order on SwiftBite AI.
+        </p>
+      </motion.div>
     );
   }
 
@@ -97,16 +130,25 @@ function Orders() {
   const completedOrders = orders.filter((o) => !ACTIVE_STATUSES.includes(o.status));
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-6 space-y-6">
-      <h1 className="text-2xl font-bold">My Orders</h1>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="mx-auto max-w-3xl px-4 py-6 space-y-6"
+    >
+      <h1 className="text-2xl font-bold text-gray-900">My Orders</h1>
 
       {activeOrders.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-gray-700">🟢 Active Orders</h2>
-          {activeOrders.map((order) => (
+          <h2 className="flex items-center gap-1.5 text-lg font-semibold text-gray-700">
+            <HiOutlineClock className="h-5 w-5 text-brand" />
+            Active Orders
+          </h2>
+          {activeOrders.map((order, i) => (
             <OrderRow
               key={order._id}
               order={order}
+              index={i}
               statusLabel={statusLabel}
               statusColor={statusColor}
               onClick={() => navigate(`/order/${order._id}`)}
@@ -117,11 +159,15 @@ function Orders() {
 
       {completedOrders.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-gray-700">✅ Past Orders</h2>
-          {completedOrders.map((order) => (
+          <h2 className="flex items-center gap-1.5 text-lg font-semibold text-gray-700">
+            <HiOutlineCheckCircle className="h-5 w-5 text-brand" />
+            Past Orders
+          </h2>
+          {completedOrders.map((order, i) => (
             <OrderRow
               key={order._id}
               order={order}
+              index={i}
               statusLabel={statusLabel}
               statusColor={statusColor}
               onClick={() => navigate(`/order/${order._id}`)}
@@ -129,22 +175,28 @@ function Orders() {
           ))}
         </section>
       )}
-    </div>
+    </motion.div>
   );
 }
 
 export default Orders;
 
 const OrderRow = ({
-  order, onClick, statusLabel, statusColor,
+  order, onClick, statusLabel, statusColor, index,
 }: {
   order: IOrder;
   onClick: () => void;
   statusLabel: Record<string, string>;
   statusColor: Record<string, string>;
+  index: number;
 }) => (
-  <div
-    className="cursor-pointer rounded-xl bg-white p-4 shadow-sm hover:shadow-md transition"
+  <motion.div
+    initial={{ opacity: 0, y: 16 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.3, delay: Math.min(index, 8) * 0.05 }}
+    whileHover={{ y: -3 }}
+    whileTap={{ scale: 0.98 }}
+    className="cursor-pointer rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]"
     onClick={onClick}
   >
     <div className="flex justify-between items-center">
@@ -171,7 +223,7 @@ const OrderRow = ({
     </div>
     <div className="mt-2 flex justify-between text-sm font-semibold">
       <span className="text-gray-500">Total</span>
-      <span className="text-[#E23744]">₹{order.totalAmount}</span>
+      <span className="text-brand">₹{order.totalAmount}</span>
     </div>
-  </div>
+  </motion.div>
 );

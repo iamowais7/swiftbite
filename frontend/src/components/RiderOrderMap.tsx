@@ -96,7 +96,7 @@ function RiderOrderMap({ order }: Props) {
   // Guard against missing delivery coordinates
   if (dLat == null || dLng == null) {
     return (
-      <div className="rounded-xl bg-white shadow-sm p-4 text-sm text-gray-500 text-center">
+      <div className="rounded-2xl bg-white p-4 text-center text-sm text-gray-500 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
         📍 Delivery location not available for this order.
       </div>
     );
@@ -104,7 +104,7 @@ function RiderOrderMap({ order }: Props) {
 
   if (!riderLocation) {
     return (
-      <div className="rounded-xl bg-white shadow-sm p-4 text-sm text-gray-500 text-center">
+      <div className="rounded-2xl bg-white p-4 text-center text-sm text-gray-500 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
         📡 Getting your location… (allow location access)
       </div>
     );
@@ -115,13 +115,13 @@ function RiderOrderMap({ order }: Props) {
   return (
     <ErrorBoundary
       fallback={
-        <div className="rounded-xl bg-white shadow-sm p-4 text-sm text-gray-500 text-center">
+        <div className="rounded-2xl bg-white p-4 text-center text-sm text-gray-500 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
           🗺️ Map could not load, but your order is active.
         </div>
       }
     >
-      <div className="rounded-xl bg-white shadow-sm p-3">
-        <MapContainer center={riderLocation} zoom={14} className="h-80 w-full rounded-lg">
+      <div className="overflow-hidden rounded-2xl bg-white p-3 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
+        <MapContainer center={riderLocation} zoom={14} className="h-80 w-full rounded-xl">
           <TileLayer
             attribution="&copy; OpenStreetMap"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

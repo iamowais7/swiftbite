@@ -2,9 +2,11 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import type { IRestaurant, IMenuItem } from "../types"
 import axios from "axios";
+import { motion } from "framer-motion";
 import { restaurantService } from "../main";
 import ResaurantProfile from "../components/ResaurantProfile"
 import MenuItems from "../components/MenuItems";
+import { BiSearch } from "react-icons/bi";
 
 
 function RestaurantPage() {
@@ -58,7 +60,7 @@ if(id){
   if(loading){
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <div className="text-gray-500">Loading restaurant...</div>
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-brand border-t-transparent" />
       </div>
     )
   }
@@ -74,16 +76,24 @@ if(id){
     <div className="min-h-screen bg-gray-50 px-4 py-6 space-y-6">
       <ResaurantProfile restaurant={restaurant} onUpdate={setRestaurant} isSeller={false}/>
 
-      <div className="rounded-xl bg-white shadow-sm p-4 space-y-4">
-        <input
-          type="text"
-          placeholder="Search this menu (e.g. 'something spicy')"
-          value={search}
-          onChange={(e)=>setSearch(e.target.value)}
-          className="w-full rounded-lg border px-4 py-2 text-sm outline-none"
-        />
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="mx-auto max-w-6xl rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-5 space-y-5"
+      >
+        <div className="relative">
+          <BiSearch className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search this menu (e.g. &quot;something spicy&quot;)"
+            value={search}
+            onChange={(e)=>setSearch(e.target.value)}
+            className="w-full rounded-xl border border-gray-200 py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10"
+          />
+        </div>
         <MenuItems isSeller={false} items={menuItems} onItemDeleted={()=>{}}/>
-      </div>
+      </motion.div>
     </div>
   )
 }

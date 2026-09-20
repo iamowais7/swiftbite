@@ -5,7 +5,8 @@ import type { ICart, IMenuItem, IRestaurant } from "../types";
 import axios from "axios";
 import { restaurantService } from "../main";
 import toast from "react-hot-toast";
-import { BiLoader, BiMinus, BiPlus } from "react-icons/bi";
+import { motion } from "framer-motion";
+import { BiCart, BiLoader, BiMinus, BiPlus } from "react-icons/bi";
 import { TbTrash } from "react-icons/tb";
 
 function Cart() {
@@ -17,9 +18,19 @@ function Cart() {
 
   if (!cart || cart.length === 0) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <p className="text-gray-500 text-lg">Your cart is empty</p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex min-h-[60vh] flex-col items-center justify-center gap-3 text-center"
+      >
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/10">
+          <BiCart className="h-8 w-8 text-brand" />
+        </div>
+        <p className="text-lg font-semibold text-gray-700">Your cart is empty</p>
+        <p className="max-w-xs text-sm text-gray-400">
+          Looks like you haven't added anything yet — go find something tasty.
+        </p>
+      </motion.div>
     );
   }
 
@@ -87,35 +98,45 @@ function Cart() {
   };
 
   return (
-    <div className="mx-auto max-w-5xl py-6 px-4 space-y-6">
-      <div className="rounded-xl bg-white p-4 shadow-sm">
-        <h2 className="text-xl font-semibold">{restaurant.name}</h2>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="mx-auto max-w-5xl py-6 px-4 space-y-6"
+    >
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
+        <h2 className="text-xl font-bold text-gray-900">{restaurant.name}</h2>
         <p className="text-sm text-gray-500">
           {restaurant.autoLocation.formattedAddress}
         </p>
       </div>
 
       <div className="space-y-4">
-        {cart.map((cartItem: ICart) => {
+        {cart.map((cartItem: ICart, i: number) => {
           const item = cartItem.itemId as IMenuItem;
           const isLoading = loadingItemId === item._id;
           return (
-            <div
+            <motion.div
               key={item._id}
-              className="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.05 }}
+              whileHover={{ y: -3 }}
+              className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]"
             >
               <img
                 src={item.image}
                 alt=""
-                className="h-20 w-20 rounded object-cover"
+                className="h-20 w-20 rounded-xl object-cover"
               />
               <div className="flex-1">
-                <h3 className="font-semibold">{item.name}</h3>
+                <h3 className="font-bold text-gray-900">{item.name}</h3>
                 <p className="text-sm text-gray-500">₹{item.price}</p>
               </div>
               <div className="flex items-center gap-3">
-                <button
-                  className="rounded-full border p-2 hover:bg-gray-100 disabled:opacity-50"
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  className="rounded-full border border-gray-200 p-2 text-gray-600 transition hover:border-brand hover:bg-brand/10 hover:text-brand disabled:opacity-50"
                   disabled={isLoading}
                   onClick={() => decreaseQty(item._id)}
                 >
@@ -124,10 +145,13 @@ function Cart() {
                   ) : (
                     <BiMinus size={16} />
                   )}
-                </button>
-                <span className="font-medium">{cartItem.quantity}</span>
-                <button
-                  className="rounded-full border p-2 hover:bg-gray-100 disabled:opacity-50"
+                </motion.button>
+                <span className="w-4 text-center font-semibold text-gray-900">
+                  {cartItem.quantity}
+                </span>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  className="rounded-full border border-gray-200 p-2 text-gray-600 transition hover:border-brand hover:bg-brand/10 hover:text-brand disabled:opacity-50"
                   disabled={isLoading}
                   onClick={() => increaseQty(item._id)}
                 >
@@ -136,30 +160,30 @@ function Cart() {
                   ) : (
                     <BiPlus size={16} />
                   )}
-                </button>
+                </motion.button>
               </div>
-              <p className="w-20 text-right font-medium">
+              <p className="w-20 text-right font-bold text-gray-900">
                 ₹{item.price * cartItem.quantity}
               </p>
-            </div>
+            </motion.div>
           );
         })}
       </div>
 
-      <div className="rounded-xl bg-white p-4 shadow-sm space-y-3">
-        <div className="flex justify-between text-sm">
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3">
+        <div className="flex justify-between text-sm text-gray-600">
           <span>Total Items</span>
           <span>{quantity}</span>
         </div>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm text-gray-600">
           <span>Subtotal</span>
           <span>₹{subTotal}</span>
         </div>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm text-gray-600">
           <span>Delivery Fee</span>
           <span>{deliveryFee === 0 ? "Free" : `₹${deliveryFee}`}</span>
         </div>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm text-gray-600">
           <span>Platform Fee</span>
           <span>₹{platformFee}</span>
         </div>
@@ -168,31 +192,35 @@ function Cart() {
             Add items worth ₹{250 - subTotal} more to get free delivery
           </p>
         )}
-        <div className="flex justify-between text-base font-semibold border-t pt-2">
+        <div className="flex justify-between border-t pt-2 text-base font-bold text-gray-900">
           <span>Grand Total</span>
           <span>₹{grandTotal}</span>
         </div>
 
-        <button
+        <motion.button
+          whileHover={!restaurant.isOpen ? {} : { scale: 1.02 }}
+          whileTap={!restaurant.isOpen ? {} : { scale: 0.97 }}
           onClick={() => navigate("/checkout")}
-          className={`mt-3 w-full rounded-lg bg-[#E23744] py-3 text-sm font-semibold text-white hover:bg-red-800 ${
+          className={`mt-3 w-full rounded-xl bg-brand py-3 text-sm font-semibold text-white shadow-sm hover:bg-brand-dark ${
             !restaurant.isOpen ? "opacity-50 cursor-not-allowed" : ""
           }`}
           disabled={!restaurant.isOpen}
         >
           {!restaurant.isOpen ? "Restaurant is closed" : "Proceed to Checkout"}
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
           onClick={clearCart}
           disabled={clearingCart}
-          className="mt-3 w-full rounded-lg bg-[#262626] py-3 text-sm font-semibold text-white hover:bg-gray-900 flex justify-center items-center gap-3"
+          className="mt-3 flex w-full items-center justify-center gap-3 rounded-xl bg-gray-800 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-900 disabled:opacity-60"
         >
           Clear Cart
           <TbTrash size={16} />
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

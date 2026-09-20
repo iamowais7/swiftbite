@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { restaurantService } from "../main";
 import OrderCard from "./OrderCard";
 import { useSocket } from "../context/SocketContext";
 import type { IOrder } from "../types";
 import { useSound } from "../hooks/useSound";
+import { BiBell, BiVolumeFull } from "react-icons/bi";
 
 const ACTIVE_STATUSES = [
   "placed",
@@ -82,64 +84,106 @@ function RestaurnatOrders({ restaurantId }: { restaurantId: string }) {
   };
 
   if (loading) {
-    return <p className="text-gray-500">Loading Orders…</p>;
+    return (
+      <div className="flex h-32 items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-brand border-t-transparent" />
+      </div>
+    );
   }
 
   const activeOrders    = orders.filter((o) =>  ACTIVE_STATUSES.includes(o.status));
   const completedOrders = orders.filter((o) => !ACTIVE_STATUSES.includes(o.status));
 
   return (
-    <div className="space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="space-y-6"
+    >
       {/* Sound permission banner */}
-      {!audioUnlocked && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">🔔</span>
-            <div>
-              <p className="font-medium text-blue-900">Enable Sound Notifications</p>
-              <p className="text-sm text-blue-700">Get notified when new orders arrive</p>
-            </div>
-          </div>
-          <button
-            onClick={unlockAudio}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition"
+      <AnimatePresence mode="wait">
+        {!audioUnlocked ? (
+          <motion.div
+            key="unlock"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-brand/10 p-4"
           >
-            Enable Sound
-          </button>
-        </div>
-      )}
-      {audioUnlocked && (
-        <div className="flex items-center gap-2 text-sm text-green-600 font-medium">
-          <span>🔊</span> Sound notifications enabled
-        </div>
-      )}
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-brand shadow-sm">
+                <BiBell className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">Enable Sound Notifications</p>
+                <p className="text-xs text-gray-500">Get notified when new orders arrive</p>
+              </div>
+            </div>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={unlockAudio}
+              className="rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark"
+            >
+              Enable Sound
+            </motion.button>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="unlocked"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+            className="flex items-center gap-2 text-sm font-medium text-green-600"
+          >
+            <BiVolumeFull className="h-4 w-4" /> Sound notifications enabled
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold">Active Orders</h3>
+        <h3 className="text-lg font-bold text-gray-900">Active Orders</h3>
         {activeOrders.length === 0 ? (
-          <p className="text-sm text-gray-500">No active orders</p>
+          <p className="text-sm text-gray-400">No active orders</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {activeOrders.map((order) => (
-              <OrderCard key={order._id} order={order} onStatusUpdate={fetchOrders} />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {activeOrders.map((order, i) => (
+              <motion.div
+                key={order._id}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.05 }}
+              >
+                <OrderCard order={order} onStatusUpdate={fetchOrders} />
+              </motion.div>
             ))}
           </div>
         )}
       </div>
 
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold">Completed Orders</h3>
+        <h3 className="text-lg font-bold text-gray-900">Completed Orders</h3>
         {completedOrders.length === 0 ? (
-          <p className="text-sm text-gray-500">No completed orders</p>
+          <p className="text-sm text-gray-400">No completed orders</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {completedOrders.map((order) => (
-              <OrderCard key={order._id} order={order} onStatusUpdate={fetchOrders} />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {completedOrders.map((order, i) => (
+              <motion.div
+                key={order._id}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.05 }}
+              >
+                <OrderCard order={order} onStatusUpdate={fetchOrders} />
+              </motion.div>
             ))}
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

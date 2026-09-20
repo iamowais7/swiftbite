@@ -32,7 +32,7 @@ class ErrorBoundary extends Component<Props, State> {
           <p className="text-sm text-gray-500 max-w-md break-words">{this.state.message}</p>
           <button
             onClick={this.reset}
-            className="rounded-lg bg-[#E23744] px-4 py-2 text-sm font-semibold text-white hover:bg-[#d32f3a]"
+            className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
           >
             Try again
           </button>

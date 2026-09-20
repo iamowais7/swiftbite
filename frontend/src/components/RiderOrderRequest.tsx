@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { motion } from "framer-motion";
+import { BiCheck } from "react-icons/bi";
 import { riderService } from "../main";
 import { useSound } from "../hooks/useSound";
 
@@ -61,18 +63,46 @@ const RiderOrderRequest = ({ orderId, onAccepted }: Props) => {
   const pct = (secondsLeft / 10) * 100;
 
   return (
-    <div className="rounded-xl bg-white p-4 shadow-sm border-2 border-green-400 space-y-3 animate-pulse-once">
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: -12, scale: 0.96 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        boxShadow: [
+          "0 2px 10px rgba(34,197,94,0.15)",
+          "0 10px 28px rgba(34,197,94,0.35)",
+          "0 2px 10px rgba(34,197,94,0.15)",
+        ],
+      }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{
+        opacity: { duration: 0.3 },
+        y: { duration: 0.3 },
+        scale: { duration: 0.3 },
+        boxShadow: { duration: 1.6, repeat: Infinity, ease: "easeInOut" },
+      }}
+      className="space-y-3 rounded-2xl border-2 border-green-400 bg-white p-4"
+    >
       {/* Timer bar */}
-      <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-green-500 transition-all duration-1000"
-          style={{ width: `${pct}%` }}
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+        <motion.div
+          animate={{ width: `${pct}%` }}
+          transition={{ duration: 1, ease: "linear" }}
+          className="h-full rounded-full bg-green-500"
         />
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-green-700">🚨 New Delivery Request</p>
-        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${secondsLeft <= 3 ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"}`}>
+        <p className="flex items-center gap-1.5 text-sm font-bold text-green-700">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+          </span>
+          New Delivery Request
+        </p>
+        <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${secondsLeft <= 3 ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"}`}>
           {secondsLeft}s
         </span>
       </div>
@@ -81,14 +111,23 @@ const RiderOrderRequest = ({ orderId, onAccepted }: Props) => {
         Order ID: <span className="font-semibold text-gray-700">#{orderId.slice(-6).toUpperCase()}</span>
       </p>
 
-      <button
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.97 }}
         disabled={accepting}
         onClick={acceptOrder}
-        className="w-full rounded-lg bg-green-600 py-2.5 text-sm font-semibold text-white hover:bg-green-700 active:scale-95 transition disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-green-600 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 disabled:opacity-50"
       >
-        {accepting ? "Accepting..." : "✓ Accept Order"}
-      </button>
-    </div>
+        {accepting ? (
+          "Accepting..."
+        ) : (
+          <>
+            <BiCheck className="h-4.5 w-4.5" />
+            Accept Order
+          </>
+        )}
+      </motion.button>
+    </motion.div>
   );
 };
 

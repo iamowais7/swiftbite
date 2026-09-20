@@ -5,7 +5,8 @@ import { restaurantService, utilsService } from "../main";
 import { useNavigate } from "react-router-dom";
 import type { ICart, IMenuItem, IRestaurant } from "../types";
 import toast from "react-hot-toast";
-import { BiCreditCard, BiLoader } from "react-icons/bi";
+import { motion } from "framer-motion";
+import { BiCreditCard, BiLoader, BiMapPin } from "react-icons/bi";
 import { loadStripe } from "@stripe/stripe-js";
 
 interface Address {
@@ -48,9 +49,13 @@ function Checkout() {
 
   if (!cart || cart.length === 0) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex min-h-[60vh] items-center justify-center"
+      >
         <p className="text-gray-500 text-lg">Your Cart is Empty</p>
-      </div>
+      </motion.div>
     );
   }
 
@@ -96,7 +101,7 @@ function Checkout() {
         key,
         amount: amount * 100,
         currency: "INR",
-        name: "SwiftBite",
+        name: "SwiftBite AI",
         description: "Food Order Payment",
         order_id: razorpayOrderId,
         handler: async (response: any) => {
@@ -152,51 +157,64 @@ function Checkout() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-6 space-y-6">
-      <h1 className="text-2xl font-bold">Checkout</h1>
-      <div className="rounded-xl bg-white p-4 shadow-sm">
-        <h2 className="text-lg font-semibold">{restaurant.name}</h2>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="mx-auto max-w-4xl px-4 py-6 space-y-6"
+    >
+      <h1 className="text-2xl font-extrabold text-gray-900">Checkout</h1>
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)]">
+        <h2 className="text-lg font-bold text-gray-900">{restaurant.name}</h2>
         <p className="text-sm text-gray-500">
           {restaurant.autoLocation.formattedAddress}
         </p>
       </div>
-      <div className="rounded-xl bg-white p-4 shadow-sm space-y-3">
-        <h3 className="font-semibold">Delivery Address</h3>
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3">
+        <h3 className="font-bold text-gray-900">Delivery Address</h3>
         {loadingAddress ? (
-          <p className="text-sm text-gray-500">Loading addresses...</p>
+          <div className="flex items-center justify-center py-6">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-brand border-t-transparent" />
+          </div>
         ) : address.length === 0 ? (
           <p className="text-sm text-gray-500">
             No address found. Please add one.
           </p>
         ) : (
-          address.map((add) => (
-            <label
+          address.map((add, i) => (
+            <motion.label
               key={add._id}
-              className={`flex gap-3 rounded-lg border p-3 cursor-pointer transition ${
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.05 }}
+              whileHover={{ y: -2 }}
+              className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition ${
                 selectedAddressId === add._id
-                  ? "border-[#e23744] bg-red-50"
-                  : "hover:bg-gray-50"
+                  ? "border-brand bg-brand/10"
+                  : "border-gray-200 hover:bg-gray-50"
               }`}
             >
               <input
                 type="radio"
                 checked={selectedAddressId === add._id}
                 onChange={() => setSelectedAddressId(add._id)}
+                className="mt-1 accent-brand"
               />
+              <BiMapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
               <div>
-                <p className="text-sm font-medium">{add.formattedAddress}</p>
+                <p className="text-sm font-medium text-gray-800">{add.formattedAddress}</p>
                 <p className="text-xs text-gray-500">{add.mobile}</p>
               </div>
-            </label>
+            </motion.label>
           ))
         )}
       </div>
-      <div className="rounded-xl bg-white p-4 shadow-sm space-y-4">
-        <h3 className="font-semibold">Order Summary</h3>
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-4">
+        <h3 className="font-bold text-gray-900">Order Summary</h3>
         {cart.map((cartItem: ICart) => {
           const item = cartItem.itemId as IMenuItem;
           return (
-            <div className="flex justify-between text-sm" key={cartItem._id}>
+            <div className="flex justify-between text-sm text-gray-600" key={cartItem._id}>
               <span>
                 {item.name} X {cartItem.quantity}
               </span>
@@ -204,16 +222,16 @@ function Checkout() {
             </div>
           );
         })}
-        <hr />
-        <div className="flex justify-between text-sm">
+        <hr className="border-gray-100" />
+        <div className="flex justify-between text-sm text-gray-600">
           <span>Items ({quantity})</span>
           <span>₹{subTotal}</span>
         </div>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm text-gray-600">
           <span>Delivery Fee</span>
           <span>{deliveryFee === 0 ? "Free" : `₹${deliveryFee}`}</span>
         </div>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm text-gray-600">
           <span>Platform Fee</span>
           <span>₹{platformFee}</span>
         </div>
@@ -222,17 +240,19 @@ function Checkout() {
             Add items worth ₹{250 - subTotal} more to get free delivery
           </p>
         )}
-        <div className="flex justify-between text-base font-semibold border-t pt-2">
+        <div className="flex justify-between border-t pt-2 text-base font-bold text-gray-900">
           <span>Grand Total</span>
           <span>₹{grandTotal}</span>
         </div>
       </div>
-      <div className="rounded-xl bg-white p-4 shadow-sm space-y-3">
-        <h3 className="font-semibold">Payment Method</h3>
-        <button
+      <div className="rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] space-y-3">
+        <h3 className="font-bold text-gray-900">Payment Method</h3>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
           disabled={!selectedAddressId || loadingRazorpay || creatingOrder}
           onClick={payWithRazorpay}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#2D7FF9] py-3 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#2D7FF9] py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 disabled:opacity-50"
         >
           {loadingRazorpay ? (
             <BiLoader size={18} className="animate-spin" />
@@ -240,11 +260,13 @@ function Checkout() {
             <BiCreditCard size={18} />
           )}{" "}
           Pay with Razorpay
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
           disabled={!selectedAddressId || loadingStripe || creatingOrder}
           onClick={payWithStripe}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-black py-3 text-sm font-semibold text-white hover:bg-gray-800 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 disabled:opacity-50"
         >
           {loadingStripe ? (
             <BiLoader size={18} className="animate-spin" />
@@ -252,9 +274,9 @@ function Checkout() {
             <BiCreditCard size={18} />
           )}{" "}
           Pay with Stripe
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

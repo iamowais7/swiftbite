@@ -19,16 +19,19 @@ import OrderPage from "./pages/OrderPage";
 import RiderDashboard from "./pages/RiderDashboard";
 import Admin from "./pages/Admin";
 import AiSupportChat from "./components/AiSupportChat";
+import Logo from "./components/Logo";
 
 function App() {
   const { user, loading } = useAppData();
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="flex flex-col items-center gap-3">
-          <span className="text-3xl font-bold text-[#E23744]">SwiftBite</span>
-          <div className="h-1 w-32 rounded-full bg-[#E23744] animate-pulse" />
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-[#fff3f2] via-white to-white">
+        <div className="flex flex-col items-center gap-4">
+          <Logo size="lg" />
+          <div className="h-1 w-32 overflow-hidden rounded-full bg-brand/15">
+            <div className="h-full w-1/2 animate-pulse rounded-full bg-brand" />
+          </div>
           <p className="text-sm text-gray-400">Loading...</p>
         </div>
       </div>

@@ -2,6 +2,7 @@ import axios from "axios";
 import { restaurantService } from "../main";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import type { IOrder } from "../types";
 
 interface Props {
@@ -79,23 +80,23 @@ function OrderCard({ order, onStatusUpdate }: Props) {
   };
 
   return (
-    <div className="rounded-xl bg-white p-4 shadow-sm space-y-3">
-      <div className="flex justify-between items-center">
-        <p className="text-sm font-medium">Order #{order._id.slice(-6)}</p>
+    <div className="space-y-3 rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_10px_25px_rgba(226,55,68,0.12)]">
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-bold text-gray-900">Order #{order._id.slice(-6)}</p>
         <span
-          className={`rounded-full px-3 py-1 text-xs font-medium ${statusColor(order.status)}`}
+          className={`rounded-full px-3 py-1 text-xs font-semibold ${statusColor(order.status)}`}
         >
           {order.status.replaceAll("_", " ")}
         </span>
       </div>
-      <div className="text-sm text-gray-600 space-y-1">
+      <div className="space-y-1 text-sm text-gray-600">
         {order.items.map((item, i) => (
           <p key={i}>
-            {item.name} X {item.quantity}
+            {item.name} x {item.quantity}
           </p>
         ))}
       </div>
-      <div className="flex justify-between text-sm font-medium">
+      <div className="flex justify-between text-sm font-bold text-gray-900">
         <span>Total</span>
         <span>₹{order.totalAmount}</span>
       </div>
@@ -103,25 +104,29 @@ function OrderCard({ order, onStatusUpdate }: Props) {
       {order.paymentStatus === "paid" && actions.length > 0 && (
         <div className="flex flex-wrap gap-2 pt-2">
           {actions.map((status) => (
-            <button
+            <motion.button
               key={status}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
               disabled={loading}
               onClick={() => updateStatus(status)}
-              className="rounded-lg bg-[#e23744] px-3 py-1 text-xs text-white hover:bg-[#d32f3a] disabled:opacity-50"
+              className="rounded-xl bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-brand-dark disabled:opacity-50"
             >
               Mark as {status.replaceAll("_", " ")}
-            </button>
+            </motion.button>
           ))}
         </div>
       )}
       {order.status === "ready_for_rider" && retryVisible && (
         <div className="pt-2">
-          <button
-            className="w-full rounded-lg border border-[#e23744] py-2 text-xs font-semibold text-[#e23744] hover:bg-red-50 disabled:opacity-50"
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full rounded-xl border border-brand py-2 text-xs font-semibold text-brand transition hover:bg-brand/10 disabled:opacity-50"
             onClick={() => updateStatus("ready_for_rider")}
           >
             Retry Ready for Rider
-          </button>
+          </motion.button>
         </div>
       )}
     </div>
